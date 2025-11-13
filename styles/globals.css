@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Root variables */
+:root {
+  --obsidian-base: #0B0B0C;
+  --obsidian-dark: #0E121A;
+  --ink: #EDEDED;
+  --muted: rgba(255, 255, 255, 0.72);
+  --electric: #66A3FF;
+  --electric-start: #4DA8FF;
+  --electric-end: #7EC7FF;
+}
+
+/* Base styles */
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-obsidian-base text-ink antialiased;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  /* Film grain texture overlay for matte effect */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.025;
+    z-index: 2;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.5'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+
+  /* Focus styles */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-electric/50;
+  }
+
+  /* Disable default button styles */
+  button {
+    @apply focus:outline-none;
+  }
+
+  /* Typography defaults */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+}
+
+/* Utility classes */
+@layer utilities {
+  /* Electric blue grid texture - enhanced visibility */
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.07;
+    z-index: 1;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        var(--electric),
+        var(--electric) 1.5px,
+        transparent 1.5px,
+        transparent 40px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        var(--electric),
+        var(--electric) 1.5px,
+        transparent 1.5px,
+        transparent 40px
+      );
+    /* Add subtle blur for softer appearance */
+    filter: blur(0.3px);
+  }
+
+  /* Liquid glass effect */
+  .glass {
+    @apply backdrop-blur-sm bg-white/[0.02];
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+      inset 0 1px 2px 0 rgba(255, 255, 255, 0.05),
+      0 4px 16px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  /* Enhanced glass for interactive elements */
+  .glass-interactive {
+    @apply glass;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glass-interactive:hover {
+    @apply bg-white/[0.04];
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow:
+      inset 0 1px 2px 0 rgba(255, 255, 255, 0.08),
+      0 8px 24px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  /* Electric gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, var(--electric-start), var(--electric-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Hover glow effect */
+  .glow-hover {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .glow-hover::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, var(--electric-start), var(--electric-end));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+    filter: blur(8px);
+  }
+
+  .glow-hover:hover::before {
+    opacity: 0.12;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-obsidian-dark;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-white/10 rounded-full;
+    transition: background 0.2s;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-white/20;
+  }
+
+  /* Selection colors */
+  ::selection {
+    @apply bg-electric/20 text-white;
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Pulse ring animation for CTA */
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1.2);
+      opacity: 0;
+    }
+  }
+
+  .pulse-ring {
+    animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+/* 3D transform utilities for CometCard */
+.perspective-distant {
+  perspective: 1500px;
+}
+
+.transform-3d {
+  transform-style: preserve-3d;
+}
