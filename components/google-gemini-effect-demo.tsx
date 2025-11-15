@@ -2,6 +2,8 @@
 import { useScroll, useTransform } from "framer-motion";
 import React from "react";
 import { GoogleGeminiEffect } from "@/components/ui/google-gemini-effect";
+import { EncryptedText } from "@/components/ui/encrypted-text";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 
 export default function GoogleGeminiEffectDemo() {
   const ref = React.useRef(null);
@@ -31,20 +33,84 @@ export default function GoogleGeminiEffectDemo() {
         ]}
         title={
           <>
-            I'm <span className="gradient-text">Arhaan</span>.
+            <span className="inline-block">
+              <EncryptedText
+                text="I'm "
+                encryptedClassName="text-electric/40"
+                revealedClassName="text-ink"
+                revealDelayMs={88}
+                flipDelayMs={45}
+              />
+              <EncryptedText
+                text="Arhaan"
+                encryptedClassName="text-electric/40"
+                revealedClassName="gradient-text"
+                revealDelayMs={94}
+                flipDelayMs={45}
+              />
+              <EncryptedText
+                text="."
+                encryptedClassName="text-electric/40"
+                revealedClassName="text-ink"
+                revealDelayMs={99}
+                flipDelayMs={45}
+              />
+            </span>
             <br className="hidden md:block" />
             <span className="block mt-2">
-              I <span className="gradient-text">design</span>
+              <EncryptedText
+                text="I "
+                encryptedClassName="text-electric/40"
+                revealedClassName="text-ink"
+                revealDelayMs={105}
+                flipDelayMs={45}
+              />
+              <EncryptedText
+                text="design"
+                encryptedClassName="text-electric/40"
+                revealedClassName="gradient-text"
+                revealDelayMs={110}
+                flipDelayMs={45}
+              />
               <span className="sr-only">and</span>
               <span aria-hidden="true" className="text-muted mx-3">&</span>
-              <span className="gradient-text">build</span>
+              <EncryptedText
+                text="build"
+                encryptedClassName="text-electric/40"
+                revealedClassName="gradient-text"
+                revealDelayMs={116}
+                flipDelayMs={45}
+              />
             </span>
             <span className="block mt-2">
-              <span className="gradient-text">human-centred</span> products.
+              <EncryptedText
+                text="human-centred"
+                encryptedClassName="text-electric/40"
+                revealedClassName="gradient-text"
+                revealDelayMs={121}
+                flipDelayMs={45}
+              />
+              <EncryptedText
+                text=" products."
+                encryptedClassName="text-electric/40"
+                revealedClassName="text-ink"
+                revealDelayMs={127}
+                flipDelayMs={45}
+              />
             </span>
           </>
         }
-        description="Design × Psychology × AI"
+        description={
+          <HoverBorderGradient
+            containerClassName="rounded-full"
+            as="div"
+            className="bg-obsidian-base text-ink text-sm md:text-base px-4 py-1.5 font-medium"
+            duration={3}
+            clockwise={false}
+          >
+            Design × Psychology × AI
+          </HoverBorderGradient>
+        }
       />
     </div>
   );
