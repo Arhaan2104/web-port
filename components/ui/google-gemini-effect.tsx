@@ -2,8 +2,6 @@
 import { cn } from "@/lib/utils";
 import { motion, MotionValue } from "framer-motion";
 import React from "react";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 const transition = {
   duration: 0,
@@ -24,7 +22,7 @@ export const GoogleGeminiEffect = ({
   return (
     <div className={cn("relative", className)}>
       {/* Text content section - separate from SVG */}
-      <div className="flex flex-col items-center justify-center px-6 md:px-12 lg:px-24 text-center pt-32 pb-4">
+      <div className="flex flex-col items-center justify-center px-6 md:px-12 lg:px-24 text-center pt-32 pb-2">
         {title && (
           <motion.h1
             className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-6 max-w-5xl"
@@ -36,35 +34,14 @@ export const GoogleGeminiEffect = ({
           </motion.h1>
         )}
         {description && (
-          <motion.p
-            className="text-lg md:text-xl text-muted mb-8"
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             {description}
-          </motion.p>
+          </motion.div>
         )}
-
-        {/* CTA Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <Link
-            href="/work"
-            className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-full glass-interactive text-ink font-medium transition-all duration-300 hover:gap-4"
-            aria-label="View my work portfolio"
-          >
-            <span className="absolute inset-0 rounded-full bg-electric opacity-0 group-hover:opacity-20 group-hover:animate-ping" />
-            <span className="relative">View Work</span>
-            <ArrowRight
-              className="relative w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
-              aria-hidden="true"
-            />
-          </Link>
-        </motion.div>
       </div>
 
       {/* SVG Paths section - flows directly from button */}
