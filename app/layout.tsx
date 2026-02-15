@@ -1,23 +1,22 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Urbanist } from 'next/font/google';
+import { GeistSans } from 'geist/font/sans';
 import Topbar from '@/components/nav/Topbar';
 import LenisProvider from '@/components/providers/LenisProvider';
+import ClientOverlays from '@/components/providers/ClientOverlays';
 import '@/styles/globals.css';
 
-// Fallback font - Inter
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
 });
 
-// If you have access to custom fonts, add them here
-// Example:
-// import localFont from 'next/font/local'
-// const neueHaas = localFont({
-//   src: '../fonts/NeueHaasGroteskDisplay.woff2',
-//   variable: '--font-neue',
-// })
+const urbanist = Urbanist({
+  subsets: ['latin'],
+  variable: '--font-urbanist',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://arhaangupta.com'),
@@ -85,21 +84,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.variable} ${urbanist.variable} ${GeistSans.variable}`}>
       <head>
         {/* Preconnect to external domains for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
-        {/* Favicon */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        {/* Favicon — uncomment when files are added to public/ */}
+        {/* <link rel="icon" href="/favicon.ico" sizes="any" /> */}
+        {/* <link rel="icon" href="/favicon.svg" type="image/svg+xml" /> */}
+        {/* <link rel="apple-touch-icon" href="/apple-touch-icon.png" /> */}
 
         {/* Theme color */}
         <meta name="theme-color" content="#0B0B0C" />
       </head>
-      <body className="font-sans antialiased">
+      <body className={`${inter.className} antialiased bg-obsidian-base text-ink`} style={{ backgroundColor: '#0B0B0C', color: '#EDEDED' }}>
         {/* Smooth scroll provider */}
         <LenisProvider>
           {/* Background grid texture */}
@@ -107,6 +106,9 @@ export default function RootLayout({
 
           {/* Global navigation */}
           <Topbar />
+
+          {/* Global overlays: custom cursor, scroll-to-top, easter egg */}
+          <ClientOverlays />
 
           {/* Main content */}
           <main className="relative z-10">

@@ -20,12 +20,12 @@ export const GoogleGeminiEffect = ({
   className?: string;
 }) => {
   return (
-    <div className={cn("relative", className)}>
-      {/* Text content section - separate from SVG */}
-      <div className="flex flex-col items-center justify-center px-6 md:px-12 lg:px-24 text-center pt-32 pb-2">
+    <div className={cn("relative overflow-visible", className)}>
+      {/* Text content section */}
+      <div className="relative flex flex-col items-center justify-center px-8 md:px-16 lg:px-28 text-center pt-40 md:pt-44 lg:pt-52 pb-2 overflow-visible">
         {title && (
           <motion.h1
-            className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-6 max-w-5xl"
+            className="relative z-10 text-5xl md:text-6xl lg:text-7xl font-urbanist font-semibold leading-[1.08] tracking-[-0.02em] mb-6 max-w-5xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -35,6 +35,7 @@ export const GoogleGeminiEffect = ({
         )}
         {description && (
           <motion.div
+            className="relative z-10"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}

@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ['localhost'],
-    // Add external image domains if needed
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -12,7 +12,7 @@ const nextConfig = {
     ],
   },
   experimental: {
-    // Enable if you need experimental features
+    // viewTransition requires Next.js 15+ — upgrade when ready
   },
   // Webpack configuration for Three.js
   webpack: (config) => {

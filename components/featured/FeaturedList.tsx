@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import FeaturedCard from './FeaturedCard';
 import { projects } from '@/lib/projects';
 import { stagger } from '@/lib/motion';
-import { LampContainer } from '@/components/ui/lamp';
+import { TypingAnimation } from '@/components/ui/typing-animation';
 
 const FeaturedList: React.FC = () => {
   // Get featured projects
@@ -17,21 +17,57 @@ const FeaturedList: React.FC = () => {
 
   return (
     <section className="relative">
-      {/* Lamp effect with Work header */}
-      <LampContainer>
-        <motion.h2
-          initial={{ opacity: 0.5, y: 100 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{
-            delay: 0.3,
-            duration: 0.8,
-            ease: "easeInOut",
-          }}
-          className="text-6xl md:text-7xl lg:text-8xl font-bold text-center text-ink"
-        >
-          Work
-        </motion.h2>
-      </LampContainer>
+      {/* Ambient light bleed — top boundary */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[200px] bg-electric/[0.04] blur-[120px] rounded-full pointer-events-none"
+        aria-hidden="true"
+      />
+
+      {/* Work header with typing animation */}
+      <div className="relative bg-obsidian-base py-16 md:py-20 lg:py-24 border-b border-white/[0.03]">
+        <div className="px-6 md:px-12 lg:px-24">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col items-center text-center">
+              <div className="relative">
+                {/* Subtle glow effect behind text */}
+                <div className="absolute inset-0 blur-2xl opacity-30">
+                  <div className="w-full h-full bg-gradient-to-r from-transparent via-electric/10 to-transparent" />
+                </div>
+
+                <TypingAnimation
+                  as="h2"
+                  className="relative text-5xl md:text-6xl lg:text-7xl font-urbanist font-bold tracking-tight leading-none mb-6 text-ink drop-shadow-[0_0_35px_rgba(102,163,255,0.25)]"
+                  words={["Work.", "Projects.", "Creations."]}
+                  typeSpeed={100}
+                  deleteSpeed={60}
+                  pauseDelay={1500}
+                  delay={300}
+                  loop
+                  cursorStyle="line"
+                  blinkCursor
+                />
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.8,
+                  duration: 0.6,
+                  ease: "easeOut",
+                }}
+                className="flex items-center gap-4"
+              >
+                <div className="h-[1px] w-8 bg-gradient-to-r from-transparent to-white/20" />
+                <p className="text-xs md:text-sm text-white/25 font-urbanist font-light tracking-[0.2em] uppercase">
+                  Selected Case Studies
+                </p>
+                <div className="h-[1px] w-8 bg-gradient-to-l from-transparent to-white/20" />
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Featured projects with grid background */}
       <div className="relative bg-obsidian-base overflow-hidden">
@@ -57,7 +93,7 @@ const FeaturedList: React.FC = () => {
           />
         </motion.div>
 
-        <div className="relative z-10 px-6 md:px-12 lg:px-24 py-20 md:py-32">
+        <div className="relative z-10 px-6 md:px-12 lg:px-24 py-16 md:py-24">
           <div className="max-w-7xl mx-auto">
 
             {/* Featured cards with alternating layout */}
@@ -79,6 +115,12 @@ const FeaturedList: React.FC = () => {
             </motion.div>
           </div>
         </div>
+
+        {/* Ambient light bleed — bottom boundary */}
+        <div
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-[400px] h-[180px] bg-electric/[0.03] blur-[100px] rounded-full pointer-events-none"
+          aria-hidden="true"
+        />
       </div>
     </section>
   );

@@ -65,28 +65,8 @@ const config: Config = {
   			}
   		},
   		fontFamily: {
-  			neue: [
-  				'Neue Haas Grotesk Display',
-  				'Helvetica Neue',
-  				'Arial',
-  				'sans-serif'
-  			],
-  			satoshi: [
-  				'Satoshi',
-  				'Inter',
-  				'system-ui',
-  				'sans-serif'
-  			],
-  			monument: [
-  				'Monument Grotesk',
-  				'Helvetica',
-  				'Arial',
-  				'sans-serif'
-  			],
   			sans: [
-  				'Neue Haas Grotesk Display',
-  				'Satoshi',
-  				'Inter',
+  				'var(--font-inter)',
   				'system-ui',
   				'-apple-system',
   				'BlinkMacSystemFont',
@@ -94,6 +74,16 @@ const config: Config = {
   				'Roboto',
   				'Helvetica Neue',
   				'Arial',
+  				'sans-serif'
+  			],
+  			urbanist: [
+  				'var(--font-urbanist)',
+  				'system-ui',
+  				'sans-serif'
+  			],
+  			geist: [
+  				'var(--font-geist-sans)',
+  				'system-ui',
   				'sans-serif'
   			]
   		},
@@ -139,7 +129,8 @@ const config: Config = {
   			'fade-up': 'fadeUp 0.5s ease-out',
   			'pulse-ring': 'pulseRing 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
   			float: 'float 6s ease-in-out infinite',
-  			shimmer: 'shimmer 2s linear infinite'
+  			shimmer: 'shimmer 1.5s ease-in-out infinite',
+  			'ripple-expand': 'rippleExpand 600ms ease-out forwards'
   		},
   		keyframes: {
   			fadeIn: {
@@ -188,6 +179,16 @@ const config: Config = {
   				},
   				'100%': {
   					backgroundPosition: '200% 0'
+  				}
+  			},
+  			rippleExpand: {
+  				'0%': {
+  					transform: 'scale(0)',
+  					opacity: '0.35'
+  				},
+  				'100%': {
+  					transform: 'scale(4)',
+  					opacity: '0'
   				}
   			}
   		},

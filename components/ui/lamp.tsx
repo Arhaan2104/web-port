@@ -13,11 +13,11 @@ export const LampContainer = ({
   return (
     <div
       className={cn(
-        "relative flex min-h-[600px] flex-col items-center justify-center overflow-hidden bg-obsidian-base w-full z-0",
+        "relative flex min-h-[400px] flex-col items-center justify-center overflow-hidden bg-obsidian-base w-full z-0",
         className
       )}
     >
-      <div className="relative flex w-full flex-1 items-center justify-center isolate z-0">
+      <div className="relative flex w-full flex-1 items-center justify-center isolate z-0 -mt-16">
         <motion.div
           initial={{ opacity: 0.3, width: "15rem" }}
           whileInView={{ opacity: 0.6, width: "30rem" }}
@@ -52,33 +52,33 @@ export const LampContainer = ({
         </motion.div>
         <div className="absolute top-1/2 h-48 w-full translate-y-12 scale-x-150 bg-obsidian-base blur-2xl"></div>
         <div className="absolute top-1/2 z-50 h-48 w-full bg-transparent opacity-10 backdrop-blur-md"></div>
-        <div className="absolute inset-auto z-50 h-36 w-[28rem] -translate-y-1/2 rounded-full bg-electric opacity-25 blur-3xl"></div>
+        <div className="absolute inset-auto z-50 h-32 w-[26rem] -translate-y-8 rounded-full bg-electric opacity-20 blur-3xl"></div>
         <motion.div
           initial={{ width: "8rem" }}
-          whileInView={{ width: "16rem" }}
+          whileInView={{ width: "14rem" }}
           transition={{
             delay: 0.3,
             duration: 0.8,
             ease: "easeInOut",
           }}
-          className="absolute inset-auto z-30 h-36 w-64 -translate-y-[6rem] rounded-full bg-electric/30 blur-2xl"
+          className="absolute inset-auto z-30 h-28 w-56 -translate-y-[4rem] rounded-full bg-electric/25 blur-2xl"
         ></motion.div>
         <motion.div
-          initial={{ width: "15rem" }}
-          whileInView={{ width: "30rem" }}
+          initial={{ width: "10rem" }}
+          whileInView={{ width: "24rem" }}
           transition={{
             delay: 0.3,
             duration: 0.8,
             ease: "easeInOut",
           }}
-          className="absolute inset-auto z-50 h-0.5 w-[30rem] -translate-y-[7rem] bg-gradient-to-r from-transparent via-electric/60 to-transparent"
+          className="absolute inset-auto z-50 h-0.5 w-[24rem] -translate-y-[5rem] bg-gradient-to-r from-transparent via-electric/50 to-transparent"
         ></motion.div>
 
-        <div className="absolute inset-auto z-40 h-44 w-full -translate-y-[12.5rem] bg-obsidian-base"></div>
+        <div className="absolute inset-auto z-40 h-44 w-full -translate-y-[10rem] bg-obsidian-base"></div>
       </div>
 
       {/* Content positioned in the lamp light */}
-      <div className="relative z-50 flex flex-col items-center justify-center px-5 mt-20">
+      <div className="relative z-50 flex flex-col items-center justify-center px-5 -mt-24 pb-8">
         {children}
       </div>
     </div>
