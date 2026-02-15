@@ -15,9 +15,9 @@ const Tag: React.FC<TagProps> = ({
   size = 'sm',
 }) => {
   const variants = {
-    default: 'bg-white/[0.03] text-muted border-white/10',
+    default: 'bg-white/[0.03] text-white/50 border-white/10',
     electric: 'bg-electric-dim text-electric border-electric/20',
-    muted: 'bg-white/[0.01] text-muted/60 border-white/5',
+    muted: 'bg-white/[0.01] text-white/40 border-white/5',
   };
 
   const sizes = {
@@ -28,7 +28,7 @@ const Tag: React.FC<TagProps> = ({
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-full border font-medium uppercase tracking-[0.15em] transition-all duration-200',
+        'inline-flex items-center rounded-full border font-urbanist font-medium uppercase tracking-[0.15em] transition-all duration-200',
         variants[variant],
         sizes[size],
         'hover:bg-white/[0.05] hover:border-white/20',

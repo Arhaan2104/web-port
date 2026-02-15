@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export const BackgroundRippleEffect = ({
@@ -11,6 +11,7 @@ export const BackgroundRippleEffect = ({
   cols?: number;
   cellSize?: number;
 }) => {
+  const [mounted, setMounted] = useState(false);
   const [clickedCell, setClickedCell] = useState<{
     row: number;
     col: number;
@@ -18,20 +19,50 @@ export const BackgroundRippleEffect = ({
   const [rippleKey, setRippleKey] = useState(0);
   const ref = useRef<any>(null);
 
+  // Ensure consistent rendering between server and client
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Reset clicked cell after animation completes
+  useEffect(() => {
+    if (clickedCell) {
+      const maxDistance = Math.max(rows, cols);
+      const animationDuration = 150 + maxDistance * 50 + 300; // Max duration + buffer (updated to match new timings)
+      const timer = setTimeout(() => {
+        setClickedCell(null);
+      }, animationDuration);
+      return () => clearTimeout(timer);
+    }
+  }, [clickedCell, rows, cols]);
+
+  // Don't render anything on server to avoid hydration mismatch
+  if (!mounted) {
+    return (
+      <div
+        className={cn(
+          "absolute inset-0 h-full w-full",
+          // Subtle background effect - YC-style minimal
+          "[--cell-border-color:rgba(102,163,255,0.12)] [--cell-fill-color:rgba(102,163,255,0.025)] [--cell-shadow-color:rgba(102,163,255,0.04)]",
+        )}
+      />
+    );
+  }
+
   return (
     <div
       ref={ref}
       className={cn(
         "absolute inset-0 h-full w-full",
-        "[--cell-border-color:var(--color-neutral-300)] [--cell-fill-color:var(--color-neutral-100)] [--cell-shadow-color:var(--color-neutral-500)]",
-        "dark:[--cell-border-color:var(--color-neutral-700)] dark:[--cell-fill-color:var(--color-neutral-900)] dark:[--cell-shadow-color:var(--color-neutral-800)]",
+        // Subtle background effect - YC-style minimal
+        "[--cell-border-color:rgba(102,163,255,0.12)] [--cell-fill-color:rgba(102,163,255,0.025)] [--cell-shadow-color:rgba(102,163,255,0.04)]",
       )}
     >
       <div className="relative h-auto w-auto overflow-hidden">
         <div className="pointer-events-none absolute inset-0 z-[2] h-full w-full overflow-hidden" />
         <DivGrid
           key={`base-${rippleKey}`}
-          className="mask-radial-from-20% mask-radial-at-top opacity-600"
+          className="opacity-35"
           rows={rows}
           cols={cols}
           cellSize={cellSize}
@@ -71,8 +102,8 @@ const DivGrid = ({
   rows = 7,
   cols = 30,
   cellSize = 56,
-  borderColor = "#3f3f46",
-  fillColor = "rgba(14,165,233,0.3)",
+  borderColor = "rgba(102,163,255,0.12)",
+  fillColor = "rgba(102,163,255,0.025)",
   clickedCell = null,
   onCellClick = () => {},
   interactive = true,
@@ -89,6 +120,7 @@ const DivGrid = ({
     width: cols * cellSize,
     height: rows * cellSize,
     marginInline: "auto",
+    contain: "layout style paint",
   };
 
   return (
@@ -99,8 +131,8 @@ const DivGrid = ({
         const distance = clickedCell
           ? Math.hypot(clickedCell.row - rowIdx, clickedCell.col - colIdx)
           : 0;
-        const delay = clickedCell ? Math.max(0, distance * 55) : 0; // ms
-        const duration = 200 + distance * 80; // ms
+        const delay = clickedCell ? Math.max(0, distance * 40) : 0; // ms - reduced for smoother animation
+        const duration = 150 + distance * 50; // ms - faster animation
 
         const style: CellStyle = clickedCell
           ? {
@@ -113,8 +145,8 @@ const DivGrid = ({
           <div
             key={idx}
             className={cn(
-              "cell relative border-[0.5px] opacity-40 transition-opacity duration-150 will-change-transform hover:opacity-80 dark:shadow-[0px_0px_40px_1px_var(--cell-shadow-color)_inset]",
-              clickedCell && "animate-cell-ripple [animation-fill-mode:none]",
+              "cell relative border-[0.5px] opacity-25 transition-opacity duration-150 hover:opacity-35",
+              clickedCell && "animate-cell-ripple [animation-fill-mode:none] will-change-[opacity,background-color]",
               !interactive && "pointer-events-none",
             )}
             style={{

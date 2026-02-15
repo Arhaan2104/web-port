@@ -211,3 +211,38 @@ export const smoothSpring = {
   damping: 20,
   restDelta: 0.001,
 };
+
+/**
+ * Custom cursor spring configs
+ * Dot is tight/fast, ring lags behind for premium feel
+ */
+export const cursorDotSpring = {
+  stiffness: 300,
+  damping: 25,
+  mass: 0.5,
+};
+
+export const cursorRingSpring = {
+  stiffness: 150,
+  damping: 20,
+  mass: 0.8,
+};
+
+/**
+ * Fade in from slight scale
+ * Used for callouts and special elements
+ */
+export const fadeScale: Variants = {
+  initial: {
+    opacity: 0,
+    scale: 0.97,
+  },
+  animate: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.4, 0, 0.2, 1],
+    },
+  },
+};

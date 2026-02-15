@@ -20,7 +20,7 @@ export default function GoogleGeminiEffectDemo() {
 
   return (
     <div
-      className="bg-obsidian-base w-full relative"
+      className="bg-obsidian-base w-full relative overflow-visible"
       ref={ref}
     >
       <GoogleGeminiEffect
@@ -73,7 +73,7 @@ export default function GoogleGeminiEffectDemo() {
                 flipDelayMs={45}
               />
               <span className="sr-only">and</span>
-              <span aria-hidden="true" className="text-muted mx-3">&</span>
+              <span aria-hidden="true" className="text-ink mx-3">&</span>
               <EncryptedText
                 text="build"
                 encryptedClassName="text-electric/40"
@@ -108,7 +108,7 @@ export default function GoogleGeminiEffectDemo() {
             duration={3}
             clockwise={false}
           >
-            Design × Psychology × AI
+            <span className="font-urbanist">Design × Psychology × AI</span>
           </HoverBorderGradient>
         }
       />

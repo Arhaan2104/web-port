@@ -1,6 +1,15 @@
-import React from 'react';
+'use client';
+
+import React, { useCallback, useState } from 'react';
 import { motion, HTMLMotionProps } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import MagneticWrapper from './MagneticWrapper';
+
+interface RippleData {
+  x: number;
+  y: number;
+  id: number;
+}
 
 interface ButtonProps extends HTMLMotionProps<'button'> {
   variant?: 'primary' | 'secondary' | 'ghost' | 'glass';
@@ -8,10 +17,13 @@ interface ButtonProps extends HTMLMotionProps<'button'> {
   children: React.ReactNode;
   className?: string;
   asChild?: boolean;
+  magnetic?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = 'primary', size = 'md', children, className, asChild, ...props }, ref) => {
+  ({ variant = 'primary', size = 'md', children, className, asChild, magnetic = false, onPointerDown, ...props }, ref) => {
+    const [ripples, setRipples] = useState<RippleData[]>([]);
+
     const variants = {
       primary:
         'bg-electric text-obsidian-base hover:bg-electric-end ' +
@@ -32,13 +44,34 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       lg: 'px-8 py-4 text-lg',
     };
 
-    const Component = motion.button;
+    const handlePointerDown = useCallback(
+      (e: React.PointerEvent<HTMLButtonElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const ripple: RippleData = {
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top,
+          id: Date.now(),
+        };
+        setRipples((prev) => [...prev, ripple]);
+        // Clean up after animation
+        setTimeout(() => {
+          setRipples((prev) => prev.filter((r) => r.id !== ripple.id));
+        }, 650);
+        onPointerDown?.(e);
+      },
+      [onPointerDown]
+    );
 
-    return (
-      <Component
+    const rippleColor =
+      variant === 'primary'
+        ? 'rgba(11, 11, 12, 0.2)' // dark ripple on electric bg
+        : 'rgba(102, 163, 255, 0.15)'; // electric ripple on dark bg
+
+    const buttonEl = (
+      <motion.button
         ref={ref}
         className={cn(
-          'relative inline-flex items-center justify-center gap-2',
+          'relative inline-flex items-center justify-center gap-2 overflow-hidden',
           'rounded-full font-medium transition-all duration-300',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric focus-visible:ring-offset-2 focus-visible:ring-offset-obsidian-base',
           'disabled:opacity-50 disabled:pointer-events-none',
@@ -49,11 +82,34 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         transition={{ duration: 0.2 }}
+        onPointerDown={handlePointerDown}
         {...props}
       >
-        {children}
-      </Component>
+        {/* Ripple effects */}
+        {ripples.map((ripple) => (
+          <span
+            key={ripple.id}
+            className="absolute rounded-full animate-ripple-expand pointer-events-none"
+            style={{
+              left: ripple.x,
+              top: ripple.y,
+              width: 20,
+              height: 20,
+              marginLeft: -10,
+              marginTop: -10,
+              backgroundColor: rippleColor,
+            }}
+          />
+        ))}
+        <span className="relative z-10 inline-flex items-center gap-2">{children}</span>
+      </motion.button>
     );
+
+    if (magnetic) {
+      return <MagneticWrapper>{buttonEl}</MagneticWrapper>;
+    }
+
+    return buttonEl;
   }
 );
 

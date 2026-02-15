@@ -13,33 +13,53 @@
   --electric-end: #7EC7FF;
 }
 
+/* Body base styles - outside @layer for higher specificity */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0B0B0C !important;
+  color: #EDEDED !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  min-height: 100vh;
+}
+
 /* Base styles */
 @layer base {
-  html {
-    @apply scroll-smooth;
-  }
 
-  body {
-    @apply bg-obsidian-base text-ink antialiased;
-    position: relative;
-    min-height: 100vh;
-  }
-
-  /* Film grain texture overlay for matte effect */
+  /* Film grain texture overlay for matte effect — animated for cinematic feel */
   body::before {
+    content: '';
+    position: fixed;
+    inset: -50%;
+    width: 200%;
+    height: 200%;
+    pointer-events: none;
+    opacity: 0.035;
+    z-index: 2;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.5'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+    animation: grain-drift 8s steps(10) infinite;
+  }
+
+  /* Vignette depth layer — frames content cinematically */
+  body::after {
     content: '';
     position: fixed;
     inset: 0;
     pointer-events: none;
-    opacity: 0.025;
-    z-index: 2;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.5'/%3E%3C/svg%3E");
-    mix-blend-mode: overlay;
+    z-index: 3;
+    background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.3) 100%);
   }
 
-  /* Focus styles */
+  /* Focus styles — enhanced double-ring for accessibility */
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-electric/50;
+    outline: 2px solid rgba(102, 163, 255, 0.7);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px rgba(102, 163, 255, 0.15);
   }
 
   /* Disable default button styles */
@@ -51,6 +71,9 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold tracking-tight;
   }
+  .theme {
+    --animate-blink-cursor: blink-cursor 1.2s step-end infinite;
+  }
 }
 
 /* Utility classes */
@@ -60,7 +83,6 @@
     position: fixed;
     inset: 0;
     pointer-events: none;
-    opacity: 0.07;
     z-index: 1;
     background-image:
       repeating-linear-gradient(
@@ -79,6 +101,8 @@
       );
     /* Add subtle blur for softer appearance */
     filter: blur(0.3px);
+    /* Fade in on page load */
+    animation: grid-fade-in 0.6s ease-out 0.1s both;
   }
 
   /* Liquid glass effect */
@@ -207,4 +231,85 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Cell ripple animation for background effect */
+@keyframes cell-ripple {
+  0% {
+    transform: translateZ(0) scale(1);
+    opacity: 0.25;
+    background-color: rgba(102, 163, 255, 0.025);
+  }
+  50% {
+    transform: translateZ(0) scale(1.05);
+    opacity: 0.6;
+    background-color: rgba(102, 163, 255, 0.15);
+  }
+  100% {
+    transform: translateZ(0) scale(1);
+    opacity: 0.25;
+    background-color: rgba(102, 163, 255, 0.025);
+  }
+}
+
+.animate-cell-ripple {
+  animation: cell-ripple var(--duration, 800ms) ease-out var(--delay, 0ms);
+}
+
+/* Blinking cursor animation for typing effect */
+@keyframes blink-cursor {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+.animate-blink-cursor {
+  animation: blink-cursor 1s infinite;
+}
+
+/* Scroll progress bar gradient */
+.scroll-progress-gradient {
+  background: linear-gradient(90deg, var(--electric-start), var(--electric), var(--electric-end));
+}
+
+/* Animated film grain drift */
+@keyframes grid-fade-in {
+  from { opacity: 0; }
+  to { opacity: 0.07; }
+}
+
+@keyframes grain-drift {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Custom cursor — hide default on desktop when custom cursor is active */
+@media (pointer: fine) {
+  .cursor-custom,
+  .cursor-custom * {
+    cursor: none !important;
+  }
+}
+
+/* Optical letter spacing for display text */
+.tracking-display {
+  letter-spacing: -0.03em;
+}
+
+/* Critical body styles - at end for maximum specificity */
+body {
+  background-color: #0B0B0C !important;
+  color: #EDEDED !important;
 }
