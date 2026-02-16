@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { fadeUp } from '@/lib/motion';
 import type { Project } from '@/lib/projects';
-import { getNextProject } from '@/lib/projects';
+import { getNextProject, getPrevProject } from '@/lib/projects';
 import DesignSystemShowcase from '@/components/case-study/coral/DesignSystemShowcase';
 import CaseStudyTabs from './CaseStudyTabs';
 import {
@@ -28,6 +28,7 @@ interface CoralEHRCaseStudyProps {
 
 const CoralEHRCaseStudy: React.FC<CoralEHRCaseStudyProps> = ({ project }) => {
   const nextProject = getNextProject('coralehr');
+  const prevProject = getPrevProject('coralehr');
 
   return (
     <div className="min-h-screen pt-28 pb-20">
@@ -359,6 +360,12 @@ const CoralEHRCaseStudy: React.FC<CoralEHRCaseStudyProps> = ({ project }) => {
           tag: nextProject.tag,
           href: nextProject.href,
           image: nextProject.image,
+        } : undefined}
+        prevProject={prevProject ? {
+          title: prevProject.title,
+          tag: prevProject.tag,
+          href: prevProject.href,
+          image: prevProject.image,
         } : undefined}
       />
 

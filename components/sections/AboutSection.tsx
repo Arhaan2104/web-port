@@ -3,7 +3,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
 import { fadeUp, stagger } from '@/lib/motion';
 import Button from '@/components/ui/Button';
 import { PixelatedCanvas } from '@/components/ui/pixelated-canvas';
@@ -89,16 +88,10 @@ const AboutSection: React.FC = () => {
                 ))}
               </motion.div>
 
-              {/* Buttons */}
-              <motion.div variants={fadeUp} className="flex gap-4 pt-4">
-                <Link href="/about">
-                  <Button variant="glass" magnetic>
-                    Learn More
-                    <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </Link>
+              {/* Button */}
+              <motion.div variants={fadeUp} className="pt-4">
                 <Link href="#contact">
-                  <Button variant="secondary" magnetic>Get in Touch</Button>
+                  <Button variant="glass" magnetic>Get in Touch</Button>
                 </Link>
               </motion.div>
             </div>

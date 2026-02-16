@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { fadeUp } from '@/lib/motion';
 import type { Project } from '@/lib/projects';
-import { getNextProject } from '@/lib/projects';
+import { getNextProject, getPrevProject } from '@/lib/projects';
 import CaseStudyTabs from './CaseStudyTabs';
 import ClinicianPortalShowcase from '@/components/case-study/ticvision/ClinicianPortalShowcase';
 import MobileScreenGallery from '@/components/case-study/ticvision/MobileScreenGallery';
@@ -31,6 +31,7 @@ interface TicVisionCaseStudyProps {
 
 const TicVisionCaseStudy: React.FC<TicVisionCaseStudyProps> = ({ project }) => {
   const nextProject = getNextProject('ticvision');
+  const prevProject = getPrevProject('ticvision');
 
   return (
     <div className="min-h-screen pt-28 pb-20">
@@ -41,9 +42,9 @@ const TicVisionCaseStudy: React.FC<TicVisionCaseStudyProps> = ({ project }) => {
       <CaseStudyHero
         tag="Healthcare"
         title="TicVision"
-        subtitle="A mobile app for tracking and understanding tic disorders."
+        subtitle="Data-Driven Care for Tourette Syndrome"
         meta={[
-          { label: 'Role', value: 'Product Designer (End-to-End)' },
+          { label: 'Role', value: 'Product Designer' },
           { label: 'Team', value: '3' },
           { label: 'Timeline', value: 'Jan 2025 — Present' },
           { label: 'Platform', value: 'iOS' },
@@ -60,7 +61,7 @@ const TicVisionCaseStudy: React.FC<TicVisionCaseStudyProps> = ({ project }) => {
       >
         <div className="max-w-6xl mx-auto">
           <MobileScreenGallery
-            screens={[{ src: '/images/TicVision SS/IMG_3744.PNG', label: 'Home Screen' }]}
+            screens={[{ src: '/images/TicVision SS/IMG_3744.PNG', label: 'Mobile App' }]}
             desktopScreen={{ src: '/images/TicVision SS/clinician-portal.png', label: 'Clinician Portal' }}
             size="hero"
           />
@@ -369,6 +370,12 @@ const TicVisionCaseStudy: React.FC<TicVisionCaseStudyProps> = ({ project }) => {
           tag: nextProject.tag,
           href: nextProject.href,
           image: nextProject.image,
+        } : undefined}
+        prevProject={prevProject ? {
+          title: prevProject.title,
+          tag: prevProject.tag,
+          href: prevProject.href,
+          image: prevProject.image,
         } : undefined}
       />
 

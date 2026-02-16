@@ -1,11 +1,14 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import FeaturedCard from './FeaturedCard';
 import { projects } from '@/lib/projects';
 import { stagger } from '@/lib/motion';
 import { TypingAnimation } from '@/components/ui/typing-animation';
+import Button from '@/components/ui/Button';
 
 const FeaturedList: React.FC = () => {
   // Get featured projects
@@ -58,11 +61,11 @@ const FeaturedList: React.FC = () => {
                 }}
                 className="flex items-center gap-4"
               >
-                <div className="h-[1px] w-8 bg-gradient-to-r from-transparent to-white/20" />
-                <p className="text-xs md:text-sm text-white/25 font-urbanist font-light tracking-[0.2em] uppercase">
-                  Selected Case Studies
+                <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-white/20" />
+                <p className="text-sm md:text-base text-white/40 font-urbanist tracking-[0.2em] uppercase">
+                  Featured
                 </p>
-                <div className="h-[1px] w-8 bg-gradient-to-l from-transparent to-white/20" />
+                <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-white/20" />
               </motion.div>
             </div>
           </div>
@@ -112,6 +115,22 @@ const FeaturedList: React.FC = () => {
                   isReversed={index % 2 === 1}
                 />
               ))}
+            </motion.div>
+
+            {/* See More button */}
+            <motion.div
+              className="flex justify-center pt-16 md:pt-20"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <Link href="/work">
+                <Button variant="glass" size="lg" magnetic>
+                  See More
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
             </motion.div>
           </div>
         </div>
