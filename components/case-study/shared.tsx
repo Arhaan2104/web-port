@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { ArrowLeft, ArrowRight, ExternalLink, Expand } from 'lucide-react';
 import { fadeUp, fadeIn, stagger } from '@/lib/motion';
@@ -459,74 +460,100 @@ interface CaseStudyCTAProps {
   liveSiteUrl?: string;
   liveSiteLabel?: string;
   nextProject?: NextProject;
+  prevProject?: NextProject;
 }
 
 export const CaseStudyCTA: React.FC<CaseStudyCTAProps> = ({
   liveSiteUrl,
   liveSiteLabel = 'Visit Live Site',
   nextProject,
-}) => (
-  <motion.section
-    className="px-6 md:px-12 lg:px-24 relative"
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5 }}
-  >
-    {/* Subtle glow at bottom */}
-    <div
-      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[150px] bg-electric/[0.04] blur-[100px] rounded-full pointer-events-none"
-      aria-hidden="true"
-    />
+  prevProject,
+}) => {
+  const router = useRouter();
 
-    <div className="max-w-5xl mx-auto relative">
-      <div className="pt-10 border-t border-white/[0.06]">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-          {/* Action buttons */}
-          <div className="flex flex-wrap gap-4">
-            {liveSiteUrl && (
-              <a href={liveSiteUrl} target="_blank" rel="noopener noreferrer">
-                <Button variant="glass" magnetic>
-                  {liveSiteLabel}
-                  <ExternalLink className="w-4 h-4" />
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      if (e.key === 'ArrowRight' && nextProject) {
+        router.push(nextProject.href);
+      } else if (e.key === 'ArrowLeft' && prevProject) {
+        router.push(prevProject.href);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [nextProject, prevProject, router]);
+
+  return (
+    <motion.section
+      className="px-6 md:px-12 lg:px-24 pb-20 relative"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+    >
+      {/* Subtle glow at bottom */}
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[150px] bg-electric/[0.04] blur-[100px] rounded-full pointer-events-none"
+        aria-hidden="true"
+      />
+
+      <div className="max-w-5xl mx-auto relative">
+        <div className="pt-10 border-t border-white/[0.06]">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+            {/* Action buttons */}
+            <div className="flex flex-wrap gap-4">
+              {liveSiteUrl && (
+                <a href={liveSiteUrl} target="_blank" rel="noopener noreferrer">
+                  <Button variant="glass" magnetic>
+                    {liveSiteLabel}
+                    <ExternalLink className="w-4 h-4" />
+                  </Button>
+                </a>
+              )}
+              <Link href="/work">
+                <Button variant="secondary" magnetic>
+                  View All Work
+                  <ArrowRight className="w-4 h-4" />
                 </Button>
-              </a>
+              </Link>
+            </div>
+
+            {/* Next project card */}
+            {nextProject && (
+              <Link href={nextProject.href} className="group">
+                <div className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.12] transition-all duration-300 min-w-[280px]">
+                  <div className="relative w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-white/[0.04]">
+                    <Image
+                      src={nextProject.image}
+                      alt={nextProject.title}
+                      fill
+                      className="object-cover brightness-[0.82]"
+                      sizes="56px"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-2xs text-white/[0.45] font-urbanist uppercase tracking-[0.15em] mb-0.5">
+                      Next Project
+                    </p>
+                    <p className="text-sm text-ink font-urbanist font-medium truncate">
+                      {nextProject.title}
+                    </p>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-white/40 group-hover:text-electric group-hover:translate-x-1 transition-all duration-200 shrink-0" />
+                </div>
+              </Link>
             )}
-            <Link href="/work">
-              <Button variant="secondary" magnetic>
-                View All Work
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
           </div>
 
-          {/* Next project card */}
-          {nextProject && (
-            <Link href={nextProject.href} className="group">
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.12] transition-all duration-300 min-w-[280px]">
-                <div className="relative w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-white/[0.04]">
-                  <Image
-                    src={nextProject.image}
-                    alt={nextProject.title}
-                    fill
-                    className="object-cover brightness-[0.82]"
-                    sizes="56px"
-                  />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-2xs text-white/[0.45] font-urbanist uppercase tracking-[0.15em] mb-0.5">
-                    Next Project
-                  </p>
-                  <p className="text-sm text-ink font-urbanist font-medium truncate">
-                    {nextProject.title}
-                  </p>
-                </div>
-                <ArrowRight className="w-4 h-4 text-white/40 group-hover:text-electric group-hover:translate-x-1 transition-all duration-200 shrink-0" />
-              </div>
-            </Link>
+          {/* Keyboard navigation hint */}
+          {(nextProject || prevProject) && (
+            <p className="text-xs text-white/30 font-urbanist mt-6 text-center md:text-right">
+              ← → Navigate projects
+            </p>
           )}
         </div>
       </div>
-    </div>
-  </motion.section>
-);
+    </motion.section>
+  );
+};

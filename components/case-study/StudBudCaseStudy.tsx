@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { fadeUp } from '@/lib/motion';
 import type { Project } from '@/lib/projects';
-import { getNextProject } from '@/lib/projects';
+import { getNextProject, getPrevProject } from '@/lib/projects';
 import CaseStudyTabs from './CaseStudyTabs';
 import ArchitectureDiagram from '@/components/case-study/studbud/ArchitectureDiagram';
 import VisualDesignShowcase from '@/components/case-study/studbud/VisualDesignShowcase';
@@ -29,6 +29,7 @@ interface StudBudCaseStudyProps {
 
 const StudBudCaseStudy: React.FC<StudBudCaseStudyProps> = ({ project }) => {
   const nextProject = getNextProject('studbud');
+  const prevProject = getPrevProject('studbud');
 
   return (
     <div className="min-h-screen pt-28 pb-20">
@@ -423,6 +424,12 @@ const StudBudCaseStudy: React.FC<StudBudCaseStudyProps> = ({ project }) => {
           tag: nextProject.tag,
           href: nextProject.href,
           image: nextProject.image,
+        } : undefined}
+        prevProject={prevProject ? {
+          title: prevProject.title,
+          tag: prevProject.tag,
+          href: prevProject.href,
+          image: prevProject.image,
         } : undefined}
       />
 

@@ -3,6 +3,7 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Linkedin } from 'lucide-react';
 
 interface NavItem {
   label: string;
@@ -92,6 +93,17 @@ const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose, navItems }) => {
                 </Link>
               </motion.div>
             ))}
+            <motion.div variants={itemVariants} className="mt-4">
+              <a
+                href="https://www.linkedin.com/in/arhaangupta-/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn profile"
+                className="text-white/50 hover:text-white transition-colors duration-200"
+              >
+                <Linkedin className="w-6 h-6" />
+              </a>
+            </motion.div>
           </motion.nav>
         </motion.div>
       )}

@@ -4,14 +4,13 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, useScroll, useTransform, useSpring, useMotionTemplate, LayoutGroup } from 'framer-motion';
+import { Linkedin } from 'lucide-react';
 import { smoothSpring } from '@/lib/motion';
 import MobileNav from './MobileNav';
 import MagneticWrapper from '@/components/ui/MagneticWrapper';
 
 const navItems = [
-  { label: 'About', href: '/about' },
   { label: 'Work', href: '/work' },
-  { label: 'Lab', href: '/lab' },
   { label: 'Contact', href: '#contact', isHighlighted: true },
 ];
 
@@ -21,21 +20,31 @@ const Topbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 
-  // Transform values for scroll-based animations
+  // ── Scroll-driven motion values ──
   const scale = useTransform(scrollY, [0, 64], [1, 0.9]);
   const height = useTransform(scrollY, [0, 64], [64, 56]);
-  const blur = useTransform(scrollY, [0, 64], [12, 16]);
-  const borderOpacity = useTransform(scrollY, [0, 64], [0.08, 0.12]);
 
-  // Motion templates for CSS string interpolation with MotionValues
+  // Stronger blur for real frosted-glass separation
+  const blur = useTransform(scrollY, [0, 64], [16, 24]);
+
+  // Layered glass opacities — denser than before
+  const bgOpacity = useTransform(scrollY, [0, 64], [0.03, 0.06]);
+  const tintOpacity = useTransform(scrollY, [0, 64], [0.3, 0.5]);
+  const borderOpacity = useTransform(scrollY, [0, 64], [0.10, 0.15]);
+  const shadowOpacity = useTransform(scrollY, [0, 64], [0.2, 0.4]);
+
+  // ── Motion templates ──
   const backdropBlur = useMotionTemplate`blur(${blur}px)`;
-  const borderStyle = useMotionTemplate`1px solid rgba(255, 255, 255, ${borderOpacity})`;
+  const bgStyle = useMotionTemplate`rgba(255, 255, 255, ${bgOpacity})`;
+  const tintStyle = useMotionTemplate`rgba(11, 11, 12, ${tintOpacity})`;
+  const borderColor = useMotionTemplate`rgba(255, 255, 255, ${borderOpacity})`;
+  const boxShadow = useMotionTemplate`0 4px 24px rgba(0, 0, 0, ${shadowOpacity}), 0 0 0 1px rgba(255, 255, 255, 0.04)`;
 
-  // Smooth spring animation for transforms
+  // ── Smooth springs ──
   const smoothScale = useSpring(scale, smoothSpring);
   const smoothHeight = useSpring(height, smoothSpring);
 
-  // Track scroll state for additional styling
+  // Track scroll state
   useEffect(() => {
     const unsubscribe = scrollY.on('change', (latest) => {
       setHasScrolled(latest > 64);
@@ -43,7 +52,6 @@ const Topbar: React.FC = () => {
     return unsubscribe;
   }, [scrollY]);
 
-  // Check if a nav item is the active route
   const isActive = (href: string) => {
     if (href === '#contact') return false;
     if (href === '/') return pathname === '/';
@@ -63,25 +71,30 @@ const Topbar: React.FC = () => {
             scale: smoothScale,
             height: smoothHeight,
             backdropFilter: backdropBlur,
+            WebkitBackdropFilter: backdropBlur,
+            boxShadow,
           }}
-          className={`
-            relative w-full max-w-4xl
-            rounded-full px-5 md:px-6
-            flex items-center justify-between
-            transition-all duration-300 ease-out
-            ${hasScrolled ? 'shadow-2xl' : 'shadow-lg'}
-          `}
+          className="relative w-full max-w-4xl rounded-full px-5 md:px-6 flex items-center justify-between"
         >
-          {/* Glass background with dynamic border */}
+          {/* ── Glass layers ── */}
+
+          {/* 1. Dark tint — ensures contrast over any content */}
           <motion.div
-            className="absolute inset-0 rounded-full bg-white/[0.02]"
+            className="absolute inset-0 rounded-full"
+            style={{ backgroundColor: tintStyle }}
+          />
+
+          {/* 2. Glass sheen + top-edge luminous highlight */}
+          <motion.div
+            className="absolute inset-0 rounded-full navbar-glass"
             style={{
-              border: borderStyle,
+              backgroundColor: bgStyle,
+              border: '1px solid',
+              borderColor,
             }}
           />
 
-          {/* Inner shadow for depth */}
-          <div className="absolute inset-0 rounded-full shadow-inner opacity-50" />
+          {/* ── Content ── */}
 
           {/* Left: Name and title */}
           <div className="relative flex items-center gap-2 text-sm">
@@ -90,7 +103,7 @@ const Topbar: React.FC = () => {
             </Link>
             <span className="text-white/30 hidden sm:inline">|</span>
             <span className="text-white/50 tracking-wider text-xs uppercase hidden sm:inline">
-              Product Designer • Delhi, India
+              Design Engineer • India
             </span>
           </div>
 
@@ -145,6 +158,18 @@ const Topbar: React.FC = () => {
                 ))}
               </ul>
             </LayoutGroup>
+            <span className="w-px h-4 bg-white/10 mx-1" />
+            <MagneticWrapper strength={0.3} distance={60}>
+              <a
+                href="https://www.linkedin.com/in/arhaangupta-/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn profile"
+                className="text-white/70 hover:text-white transition-colors duration-200"
+              >
+                <Linkedin className="w-4 h-4" />
+              </a>
+            </MagneticWrapper>
           </nav>
 
           {/* Mobile hamburger */}

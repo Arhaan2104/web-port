@@ -39,12 +39,12 @@ export const projects: Project[] = [
     title: 'TicVision',
     tag: 'Healthcare',
     description:
-      'A mobile app for tracking and understanding tic disorders. 400+ downloads, piloted with 13 clinicians.',
+      'Data-Driven Care for Tourette Syndrome. 400+ downloads, piloted with 13 clinicians.',
     image: '/images/TicVision Project Image.png',
     href: '/work/ticvision',
     featured: true,
     year: '2025',
-    role: 'Product Designer (End-to-End)',
+    role: 'Product Designer',
     technologies: ['Figma', 'React Native', 'Expo', 'Redux', 'SQLite'],
     highlights: [
       '400+ downloads on the U.S. App Store',
@@ -78,7 +78,7 @@ export const projects: Project[] = [
           'Presented at TicCon 2025',
         ],
         tools: ['Figma', 'React Native', 'Expo', 'Redux', 'Victory Native', 'SQLite'],
-        role: 'Product Designer (End-to-End)',
+        role: 'Product Designer',
         timeline: 'Jan 2025 — Present',
         liveSiteUrl: 'https://www.ticvision.io',
       },
@@ -191,8 +191,8 @@ export const projects: Project[] = [
     tag: 'Startup Tools',
     description:
       'Lean startup validation toolkit — helps founders test ideas faster with structured experiments.',
-    image: '/images/placeholder.svg',
-    href: '/work/leanspark',
+    image: '/images/leasnparkimg.png',
+    href: 'https://www.leansparkbook.com',
     featured: false,
     year: '2024',
     role: 'Product Designer',
@@ -205,8 +205,8 @@ export const projects: Project[] = [
     tag: 'Productivity',
     description:
       'Visual workflow mapping tool for teams — turn messy processes into clear, shareable flows.',
-    image: '/images/placeholder.svg',
-    href: '/work/flowatlas',
+    image: '/images/flowatlasimg.png',
+    href: 'https://www.flowatlasai.com',
     featured: false,
     year: '2024',
     role: 'Product Designer',
@@ -238,4 +238,12 @@ export const getNextProject = (currentId: string) => {
   const currentIndex = featured.findIndex((p) => p.id === currentId);
   if (currentIndex === -1) return undefined;
   return featured[(currentIndex + 1) % featured.length];
+};
+
+// Helper function to get the previous featured project (for keyboard navigation)
+export const getPrevProject = (currentId: string) => {
+  const featured = projects.filter((p) => p.featured);
+  const currentIndex = featured.findIndex((p) => p.id === currentId);
+  if (currentIndex === -1) return undefined;
+  return featured[(currentIndex - 1 + featured.length) % featured.length];
 };

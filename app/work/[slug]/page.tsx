@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getProjectById, projects } from '@/lib/projects';
+import Breadcrumbs from '@/components/case-study/Breadcrumbs';
 import CaseStudyLayout from '@/components/case-study/CaseStudyLayout';
 import CoralEHRCaseStudy from '@/components/case-study/CoralEHRCaseStudy';
 import TicVisionCaseStudy from '@/components/case-study/TicVisionCaseStudy';
@@ -62,7 +63,10 @@ export default async function CaseStudyPage({ params }: PageProps) {
           }}
         />
       </div>
-      <div className="relative">{content}</div>
+      <div className="relative">
+        <Breadcrumbs projectTitle={project.title} />
+        {content}
+      </div>
     </div>
   );
 }

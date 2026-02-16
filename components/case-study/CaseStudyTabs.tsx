@@ -16,7 +16,7 @@ interface CaseStudyTabsProps {
 
 function CaseStudyTabsFallback() {
   return (
-    <div className="sticky top-20 z-40 px-6 md:px-12 lg:px-24 py-4">
+    <div className="sticky top-20 z-40 px-6 md:px-12 lg:px-24 py-4 bg-obsidian-base shadow-[0_-20px_20px_20px_#0B0B0C]">
       <div className="max-w-5xl mx-auto flex justify-center">
         <div className="inline-flex rounded-full p-1.5 bg-white/[0.03] border border-white/[0.08]">
           <div className="px-7 py-2.5 text-base font-urbanist font-medium rounded-full text-ink bg-white/[0.08] border border-white/[0.12]">
@@ -58,7 +58,7 @@ function CaseStudyTabsInner({ overview, children }: CaseStudyTabsProps) {
   return (
     <>
       {/* Sticky tab bar */}
-      <div className="sticky top-20 z-40 px-6 md:px-12 lg:px-24 py-4 bg-obsidian-base/80 backdrop-blur-md">
+      <div className="sticky top-20 z-40 px-6 md:px-12 lg:px-24 py-4 bg-obsidian-base shadow-[0_-20px_20px_20px_#0B0B0C]">
         <div className="max-w-5xl mx-auto flex justify-center">
           <LayoutGroup>
             <div className="inline-flex rounded-full p-1.5 bg-white/[0.03] border border-white/[0.08]">

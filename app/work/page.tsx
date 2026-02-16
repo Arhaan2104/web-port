@@ -8,7 +8,7 @@ import { fadeUp, stagger } from '@/lib/motion';
 import Tag from '@/components/ui/Tag';
 import ImageShimmer from '@/components/ui/ImageShimmer';
 import { useImagePreload } from '@/lib/hooks/useImagePreload';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ExternalLink } from 'lucide-react';
 import SplitTextReveal from '@/components/ui/SplitTextReveal';
 
 const featured = projects.filter((p) => p.featured);
@@ -110,13 +110,19 @@ function ProjectCard({
   priority: boolean;
   onHover: () => void;
 }) {
+  const isExternal = project.href.startsWith('http');
+  const LinkEl = isExternal ? 'a' : Link;
+  const linkProps = isExternal
+    ? { href: project.href, target: '_blank' as const, rel: 'noopener noreferrer' }
+    : { href: project.href };
+
   return (
     <motion.article
       variants={fadeUp}
       className="group relative"
       onMouseEnter={onHover}
     >
-      <Link href={project.href} className="block space-y-4">
+      <LinkEl {...linkProps} className="block space-y-4">
         {/* Project Image — Ken Burns on hover */}
         <div className="relative aspect-[16/10] overflow-hidden rounded-xl glass">
           <ImageShimmer
@@ -152,11 +158,17 @@ function ProjectCard({
           </div>
 
           <div className="flex items-center gap-2 text-electric opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out pt-1">
-            <span className="text-sm font-medium">View Project</span>
-            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+            <span className="text-sm font-medium">
+              {isExternal ? 'Visit Site' : 'View Project'}
+            </span>
+            {isExternal ? (
+              <ExternalLink className="w-4 h-4" />
+            ) : (
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+            )}
           </div>
         </div>
-      </Link>
+      </LinkEl>
     </motion.article>
   );
 }
