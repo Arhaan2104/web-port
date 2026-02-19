@@ -5,14 +5,18 @@ import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import { fadeUp, stagger } from '@/lib/motion';
 import Tag from '@/components/ui/Tag';
+import MetaPill from '@/components/ui/MetaPill';
+import SectionEyebrow from '@/components/ui/SectionEyebrow';
+import CaseStudyResourcesCompact from './CaseStudyResourcesCompact';
 import { StatCard, SectionDivider } from './shared';
-import type { CaseStudyOverview } from '@/lib/projects';
+import type { CaseStudyOverview, CaseStudyResource } from '@/lib/projects';
 
 interface CaseStudyOverviewPanelProps {
   overview: CaseStudyOverview;
+  resources?: CaseStudyResource[];
 }
 
-export default function CaseStudyOverviewPanel({ overview }: CaseStudyOverviewPanelProps) {
+export default function CaseStudyOverviewPanel({ overview, resources }: CaseStudyOverviewPanelProps) {
   return (
     <motion.div
       className="px-6 md:px-12 lg:px-24 pt-12 pb-20"
@@ -24,7 +28,7 @@ export default function CaseStudyOverviewPanel({ overview }: CaseStudyOverviewPa
         {/* Headline */}
         <motion.p
           variants={fadeUp}
-          className="text-xl md:text-2xl text-white/60 font-urbanist leading-relaxed max-w-3xl"
+          className="text-xl md:text-2xl text-content-muted font-urbanist leading-relaxed max-w-3xl"
         >
           {overview.headline}
         </motion.p>
@@ -35,8 +39,8 @@ export default function CaseStudyOverviewPanel({ overview }: CaseStudyOverviewPa
             <div className="flex gap-3 items-start">
               <div className="w-px h-full shrink-0 bg-gradient-to-b from-electric/30 via-electric/10 to-transparent" />
               <div>
-                <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-3">The Problem</p>
-                <p className="text-lg text-white/80 font-urbanist leading-relaxed">{overview.problem}</p>
+                <SectionEyebrow className="mb-3">The Problem</SectionEyebrow>
+                <p className="text-lg text-content-secondary font-urbanist leading-relaxed">{overview.problem}</p>
               </div>
             </div>
           </motion.div>
@@ -45,8 +49,8 @@ export default function CaseStudyOverviewPanel({ overview }: CaseStudyOverviewPa
             <div className="flex gap-3 items-start">
               <div className="w-px h-full shrink-0 bg-gradient-to-b from-electric/30 via-electric/10 to-transparent" />
               <div>
-                <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-3">The Solution</p>
-                <p className="text-lg text-white/80 font-urbanist leading-relaxed">{overview.solution}</p>
+                <SectionEyebrow className="mb-3">The Solution</SectionEyebrow>
+                <p className="text-lg text-content-secondary font-urbanist leading-relaxed">{overview.solution}</p>
               </div>
             </div>
           </motion.div>
@@ -56,7 +60,7 @@ export default function CaseStudyOverviewPanel({ overview }: CaseStudyOverviewPa
 
         {/* Outcomes */}
         <motion.div variants={fadeUp} className="space-y-4">
-          <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em]">Outcomes</p>
+          <SectionEyebrow>Outcomes</SectionEyebrow>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {overview.outcomes.map((outcome, i) => (
               <StatCard key={i} metric={outcome} description="" index={i} />
@@ -71,17 +75,11 @@ export default function CaseStudyOverviewPanel({ overview }: CaseStudyOverviewPa
           variants={fadeUp}
           className="flex flex-wrap gap-3 md:gap-4"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/[0.03] border border-white/[0.06]">
-            <span className="text-2xs text-white/[0.45] font-urbanist uppercase tracking-[0.15em]">Role</span>
-            <span className="w-px h-3 bg-white/[0.08]" />
-            <span className="text-sm text-ink font-urbanist font-medium">{overview.role}</span>
-          </div>
-          <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/[0.03] border border-white/[0.06]">
-            <span className="text-2xs text-white/[0.45] font-urbanist uppercase tracking-[0.15em]">Timeline</span>
-            <span className="w-px h-3 bg-white/[0.08]" />
-            <span className="text-sm text-ink font-urbanist font-medium">{overview.timeline}</span>
-          </div>
+          <MetaPill label="Role" value={overview.role} />
+          <MetaPill label="Timeline" value={overview.timeline} />
         </motion.div>
+
+        <CaseStudyResourcesCompact resources={resources} />
 
         {/* Tools */}
         <motion.div variants={fadeUp} className="flex flex-wrap gap-2">

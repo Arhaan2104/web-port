@@ -6,6 +6,7 @@ import { fadeUp } from '@/lib/motion';
 import type { Project } from '@/lib/projects';
 import { getNextProject, getPrevProject } from '@/lib/projects';
 import CaseStudyTabs from './CaseStudyTabs';
+import CaseStudyResources from './CaseStudyResources';
 import ArchitectureDiagram from '@/components/case-study/studbud/ArchitectureDiagram';
 import VisualDesignShowcase from '@/components/case-study/studbud/VisualDesignShowcase';
 import {
@@ -30,6 +31,7 @@ interface StudBudCaseStudyProps {
 const StudBudCaseStudy: React.FC<StudBudCaseStudyProps> = ({ project }) => {
   const nextProject = getNextProject('studbud');
   const prevProject = getPrevProject('studbud');
+  const resources = project.caseStudy?.resources ?? [];
 
   return (
     <div className="min-h-screen pt-28 pb-20">
@@ -40,6 +42,7 @@ const StudBudCaseStudy: React.FC<StudBudCaseStudyProps> = ({ project }) => {
       <CaseStudyHero
         tag="EdTech AI"
         title="StudBud"
+        titleClassName="bg-gradient-to-r from-[#8FA98F] to-[#C3D3C3] bg-clip-text text-transparent"
         subtitle="An AI study assistant that syncs with Google Classroom."
         meta={[
           { label: 'Role', value: 'Designer & Developer (Solo)' },
@@ -68,7 +71,7 @@ const StudBudCaseStudy: React.FC<StudBudCaseStudyProps> = ({ project }) => {
       </motion.section>
 
       {/* ── TABS ── */}
-      <CaseStudyTabs overview={project.caseStudy!.overview!}>
+      <CaseStudyTabs overview={project.caseStudy!.overview!} resources={resources}>
 
       <SectionDivider />
 
@@ -88,6 +91,14 @@ const StudBudCaseStudy: React.FC<StudBudCaseStudyProps> = ({ project }) => {
           </div>
         </SideLabel>
       </Section>
+
+      {resources.length > 0 && (
+        <Section>
+          <SideLabel label="Product in the Wild">
+            <CaseStudyResources resources={resources} />
+          </SideLabel>
+        </Section>
+      )}
 
       {/* ── THE PROBLEM ── */}
       <Section variant="highlighted">
@@ -365,7 +376,7 @@ const StudBudCaseStudy: React.FC<StudBudCaseStudyProps> = ({ project }) => {
       <Section variant="highlighted">
         <motion.p
           variants={fadeUp}
-          className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-8"
+          className="eyebrow mb-8"
         >
           Outcomes
         </motion.p>

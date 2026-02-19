@@ -73,7 +73,7 @@ const VisualDesignShowcase: React.FC = () => {
     >
       {/* Cream Palette */}
       <div>
-        <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-4">Cream Palette</p>
+        <p className="eyebrow mb-4">Cream Palette</p>
         <div className="grid grid-cols-3 gap-3">
           {creamPalette.map((s) => (
             <Swatch key={s.token} {...s} />
@@ -83,8 +83,8 @@ const VisualDesignShowcase: React.FC = () => {
 
       {/* Ink Palette */}
       <div>
-        <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-4">Ink Palette</p>
-        <div className="grid grid-cols-4 gap-3">
+        <p className="eyebrow mb-4">Ink Palette</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {inkPalette.map((s) => (
             <Swatch key={s.token} {...s} />
           ))}
@@ -93,8 +93,8 @@ const VisualDesignShowcase: React.FC = () => {
 
       {/* Accent Palette */}
       <div>
-        <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-4">Accent Palette</p>
-        <div className="grid grid-cols-4 gap-3">
+        <p className="eyebrow mb-4">Accent Palette</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {accentPalette.map((s) => (
             <Swatch key={s.token} {...s} />
           ))}
@@ -103,7 +103,7 @@ const VisualDesignShowcase: React.FC = () => {
 
       {/* Typography */}
       <div>
-        <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-4">Typography Pairing</p>
+        <p className="eyebrow mb-4">Typography Pairing</p>
         <div className="space-y-6">
           {/* Headline font */}
           <div className="space-y-2">
@@ -150,7 +150,7 @@ const VisualDesignShowcase: React.FC = () => {
 
       {/* Card Styling */}
       <div>
-        <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-4">Card Styling</p>
+        <p className="eyebrow mb-4">Card Styling</p>
         <div className="grid grid-cols-2 gap-4">
           {/* Rest state */}
           <div className="flex flex-col items-center gap-3">
@@ -205,8 +205,8 @@ const VisualDesignShowcase: React.FC = () => {
 
       {/* Screenshot Gallery */}
       <div>
-        <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-4">Product in Action</p>
-        <div className="grid grid-cols-2 gap-3">
+        <p className="eyebrow mb-4">Product in Action</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {screenshots.map((shot) => (
             <div key={shot.label} className="group relative overflow-hidden rounded-xl ring-1 ring-white/[0.06]">
               <div className="relative aspect-[16/10]">

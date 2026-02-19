@@ -6,6 +6,7 @@ import { fadeUp } from '@/lib/motion';
 import type { Project } from '@/lib/projects';
 import { getNextProject, getPrevProject } from '@/lib/projects';
 import DesignSystemShowcase from '@/components/case-study/coral/DesignSystemShowcase';
+import CaseStudyResources from './CaseStudyResources';
 import CaseStudyTabs from './CaseStudyTabs';
 import {
   ScrollProgressBar,
@@ -29,6 +30,7 @@ interface CoralEHRCaseStudyProps {
 const CoralEHRCaseStudy: React.FC<CoralEHRCaseStudyProps> = ({ project }) => {
   const nextProject = getNextProject('coralehr');
   const prevProject = getPrevProject('coralehr');
+  const resources = project.caseStudy?.resources ?? [];
 
   return (
     <div className="min-h-screen pt-28 pb-20">
@@ -38,7 +40,8 @@ const CoralEHRCaseStudy: React.FC<CoralEHRCaseStudyProps> = ({ project }) => {
       {/* ── HERO ── */}
       <CaseStudyHero
         tag="Healthcare AI"
-        title="Coral EHR"
+        title="CoralEHR"
+        titleClassName="bg-gradient-to-r from-[#F36A59] to-[#FFB3A8] bg-clip-text text-transparent"
         subtitle="An AI-native EHR for behavioral health clinicians."
         meta={[
           { label: 'Role', value: 'Co-founder — Product Design & Engineering' },
@@ -65,7 +68,7 @@ const CoralEHRCaseStudy: React.FC<CoralEHRCaseStudyProps> = ({ project }) => {
       </motion.section>
 
       {/* ── TABS ── */}
-      <CaseStudyTabs overview={project.caseStudy!.overview!}>
+      <CaseStudyTabs overview={project.caseStudy!.overview!} resources={resources}>
 
       <SectionDivider />
 
@@ -77,11 +80,19 @@ const CoralEHRCaseStudy: React.FC<CoralEHRCaseStudyProps> = ({ project }) => {
               Clinicians spend a disproportionate amount of time on documentation. Most EHR software treats note-taking as a form-filling exercise — structured templates that don&apos;t match how clinicians actually think during a session.
             </Body>
             <Body>
-              Coral EHR came out of the USC x Techstars Founder Catalyst program. We have two active design partners who use the product and give us direct feedback on what works and what doesn&apos;t in their day-to-day practice.
+              CoralEHR came out of the USC x Techstars Founder Catalyst program. We have two active design partners who use the product and give us direct feedback on what works and what doesn&apos;t in their day-to-day practice.
             </Body>
           </div>
         </SideLabel>
       </Section>
+
+      {resources.length > 0 && (
+        <Section>
+          <SideLabel label="Product in the Wild">
+            <CaseStudyResources resources={resources} />
+          </SideLabel>
+        </Section>
+      )}
 
       {/* ── MISMATCH DIAGRAM ── */}
       <Section>
@@ -299,7 +310,7 @@ const CoralEHRCaseStudy: React.FC<CoralEHRCaseStudyProps> = ({ project }) => {
         <SideLabel label="Try It">
           <div className="space-y-4">
             <Body>
-              Coral EHR is a live product. Explore the clinician portal below.
+              CoralEHR is a live product. Explore the clinician portal below.
             </Body>
             <a
               href="https://www.coralehr.com"

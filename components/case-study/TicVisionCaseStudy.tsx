@@ -8,6 +8,7 @@ import { fadeUp } from '@/lib/motion';
 import type { Project } from '@/lib/projects';
 import { getNextProject, getPrevProject } from '@/lib/projects';
 import CaseStudyTabs from './CaseStudyTabs';
+import CaseStudyResources from './CaseStudyResources';
 import ClinicianPortalShowcase from '@/components/case-study/ticvision/ClinicianPortalShowcase';
 import MobileScreenGallery from '@/components/case-study/ticvision/MobileScreenGallery';
 import {
@@ -32,6 +33,7 @@ interface TicVisionCaseStudyProps {
 const TicVisionCaseStudy: React.FC<TicVisionCaseStudyProps> = ({ project }) => {
   const nextProject = getNextProject('ticvision');
   const prevProject = getPrevProject('ticvision');
+  const resources = project.caseStudy?.resources ?? [];
 
   return (
     <div className="min-h-screen pt-28 pb-20">
@@ -42,6 +44,7 @@ const TicVisionCaseStudy: React.FC<TicVisionCaseStudyProps> = ({ project }) => {
       <CaseStudyHero
         tag="Healthcare"
         title="TicVision"
+        titleClassName="bg-gradient-to-r from-[#66A3FF] to-[#A9CCFF] bg-clip-text text-transparent"
         subtitle="Data-Driven Care for Tourette Syndrome"
         meta={[
           { label: 'Role', value: 'Product Designer' },
@@ -69,7 +72,7 @@ const TicVisionCaseStudy: React.FC<TicVisionCaseStudyProps> = ({ project }) => {
       </motion.section>
 
       {/* ── TABS ── */}
-      <CaseStudyTabs overview={project.caseStudy!.overview!}>
+      <CaseStudyTabs overview={project.caseStudy!.overview!} resources={resources}>
 
       <SectionDivider />
 
@@ -89,6 +92,14 @@ const TicVisionCaseStudy: React.FC<TicVisionCaseStudyProps> = ({ project }) => {
           </div>
         </SideLabel>
       </Section>
+
+      {resources.length > 0 && (
+        <Section>
+          <SideLabel label="Product in the Wild">
+            <CaseStudyResources resources={resources} />
+          </SideLabel>
+        </Section>
+      )}
 
       {/* App screens */}
       <Section>
@@ -304,7 +315,7 @@ const TicVisionCaseStudy: React.FC<TicVisionCaseStudyProps> = ({ project }) => {
       <Section variant="highlighted">
         <motion.p
           variants={fadeUp}
-          className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-8"
+          className="eyebrow mb-8"
         >
           Outcomes
         </motion.p>

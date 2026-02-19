@@ -8,6 +8,8 @@ import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react';
 import { fadeUp, stagger } from '@/lib/motion';
 import Tag from '@/components/ui/Tag';
 import Button from '@/components/ui/Button';
+import GlassCard from '@/components/ui/GlassCard';
+import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import type { Project } from '@/lib/projects';
 
 interface CaseStudyLayoutProps {
@@ -24,7 +26,7 @@ const CaseStudyLayout: React.FC<CaseStudyLayoutProps> = ({ project }) => {
         <div className="max-w-5xl mx-auto">
           <Link
             href="/work"
-            className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white/80 transition-colors duration-200 font-urbanist"
+            className="inline-flex items-center gap-2 text-sm text-content-subtle hover:text-content-secondary transition-colors duration-200 font-urbanist"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Work
@@ -53,7 +55,7 @@ const CaseStudyLayout: React.FC<CaseStudyLayoutProps> = ({ project }) => {
 
           <motion.p
             variants={fadeUp}
-            className="text-xl md:text-2xl text-white/60 font-urbanist leading-relaxed max-w-3xl mb-10"
+            className="text-xl md:text-2xl text-content-muted font-urbanist leading-relaxed max-w-3xl mb-10"
           >
             {project.description}
           </motion.p>
@@ -65,19 +67,19 @@ const CaseStudyLayout: React.FC<CaseStudyLayoutProps> = ({ project }) => {
           >
             {project.year && (
               <div>
-                <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-1">Year</p>
+                <SectionEyebrow className="mb-1">Year</SectionEyebrow>
                 <p className="text-sm text-ink font-urbanist font-medium">{project.year}</p>
               </div>
             )}
             {project.role && (
               <div>
-                <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-1">Role</p>
+                <SectionEyebrow className="mb-1">Role</SectionEyebrow>
                 <p className="text-sm text-ink font-urbanist font-medium">{project.role}</p>
               </div>
             )}
             {project.technologies && project.technologies.length > 0 && (
               <div>
-                <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-1">Technologies</p>
+                <SectionEyebrow className="mb-1">Technologies</SectionEyebrow>
                 <p className="text-sm text-ink font-urbanist font-medium">{project.technologies.join(' · ')}</p>
               </div>
             )}
@@ -119,10 +121,10 @@ const CaseStudyLayout: React.FC<CaseStudyLayoutProps> = ({ project }) => {
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 lg:gap-16">
             <div>
-              <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] lg:pt-1">The Problem</p>
+              <SectionEyebrow className="lg:pt-1">The Problem</SectionEyebrow>
             </div>
             <div>
-              <p className="text-lg md:text-xl text-white/80 font-urbanist leading-relaxed">
+              <p className="text-lg md:text-xl text-content-secondary font-urbanist leading-relaxed">
                 {cs.problem}
               </p>
             </div>
@@ -141,10 +143,10 @@ const CaseStudyLayout: React.FC<CaseStudyLayoutProps> = ({ project }) => {
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 lg:gap-16">
             <div>
-              <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] lg:pt-1">The Solution</p>
+              <SectionEyebrow className="lg:pt-1">The Solution</SectionEyebrow>
             </div>
             <div>
-              <p className="text-lg md:text-xl text-white/80 font-urbanist leading-relaxed">
+              <p className="text-lg md:text-xl text-content-secondary font-urbanist leading-relaxed">
                 {cs.solution}
               </p>
             </div>
@@ -194,20 +196,15 @@ const CaseStudyLayout: React.FC<CaseStudyLayoutProps> = ({ project }) => {
         viewport={{ once: true, margin: '-100px' }}
       >
         <div className="max-w-5xl mx-auto">
-          <motion.p
-            variants={fadeUp}
-            className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-8"
-          >
-            Results & Impact
-          </motion.p>
+          <motion.div variants={fadeUp} className="mb-8">
+            <SectionEyebrow>Results & Impact</SectionEyebrow>
+          </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {cs.results.map((result, i) => (
-              <motion.div
-                key={i}
-                variants={fadeUp}
-                className="p-6 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.12] transition-colors duration-300"
-              >
-                <p className="text-lg text-ink font-urbanist font-medium">{result}</p>
+              <motion.div key={i} variants={fadeUp}>
+                <GlassCard className="p-6" interactive>
+                  <p className="text-lg text-ink font-urbanist font-medium">{result}</p>
+                </GlassCard>
               </motion.div>
             ))}
           </div>

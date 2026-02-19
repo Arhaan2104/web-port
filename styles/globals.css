@@ -11,6 +11,22 @@
   --electric: #66A3FF;
   --electric-start: #4DA8FF;
   --electric-end: #7EC7FF;
+  --content-primary: #EDEDED;
+  --content-secondary: rgba(255, 255, 255, 0.8);
+  --content-tertiary: rgba(255, 255, 255, 0.75);
+  --content-muted: rgba(255, 255, 255, 0.6);
+  --content-subtle: rgba(255, 255, 255, 0.5);
+  --content-faint: rgba(255, 255, 255, 0.4);
+  --content-quiet: rgba(255, 255, 255, 0.3);
+  --content-meta-label: rgba(255, 255, 255, 0.45);
+  --surface-1: rgba(255, 255, 255, 0.02);
+  --surface-2: rgba(255, 255, 255, 0.03);
+  --surface-3: rgba(255, 255, 255, 0.04);
+  --surface-elevated: rgba(255, 255, 255, 0.08);
+  --line-subtle: rgba(255, 255, 255, 0.04);
+  --line-default: rgba(255, 255, 255, 0.06);
+  --line-strong: rgba(255, 255, 255, 0.12);
+  --line-electric: rgba(102, 163, 255, 0.3);
 }
 
 /* Body base styles - outside @layer for higher specificity */
@@ -73,6 +89,56 @@ body {
   }
   .theme {
     --animate-blink-cursor: blink-cursor 1.2s step-end infinite;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-xs font-urbanist uppercase tracking-[0.15em] text-content-subtle;
+  }
+
+  .meta-pill {
+    @apply inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-surface-2 border border-line;
+  }
+
+  .meta-pill-sm {
+    @apply gap-1.5 px-3 py-1.5;
+  }
+
+  .meta-pill-label {
+    @apply text-2xs font-urbanist uppercase tracking-[0.15em] text-content-meta;
+  }
+
+  .meta-pill-label-sm {
+    @apply text-[10px] tracking-[0.12em];
+  }
+
+  .meta-pill-divider {
+    @apply w-px h-3 bg-white/[0.08];
+  }
+
+  .meta-pill-divider-sm {
+    @apply h-2.5;
+  }
+
+  .meta-pill-value {
+    @apply text-sm font-urbanist font-medium text-content-primary;
+  }
+
+  .meta-pill-value-sm {
+    @apply text-xs text-white/70;
+  }
+
+  .glass-card {
+    @apply rounded-xl bg-surface-1 border border-line;
+  }
+
+  .glass-card-interactive {
+    @apply transition-all duration-300 hover:border-line-strong;
+  }
+
+  .case-tabs-shadow {
+    box-shadow: 0 -20px 20px 20px var(--obsidian-base);
   }
 }
 

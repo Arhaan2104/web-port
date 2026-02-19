@@ -22,8 +22,8 @@ const PhoneFrame: React.FC<{ screen: Screen; size: 'default' | 'hero' }> = ({
 }) => {
   const widthClass =
     size === 'hero'
-      ? 'w-[221px] md:w-[255px]'
-      : 'w-[220px] md:w-[260px]';
+      ? 'w-[180px] sm:w-[221px] md:w-[255px]'
+      : 'w-[180px] sm:w-[220px] md:w-[260px]';
 
   return (
     <div className="flex flex-col items-center">
@@ -48,7 +48,8 @@ const PhoneFrame: React.FC<{ screen: Screen; size: 'default' | 'hero' }> = ({
             alt={screen.label}
             fill
             className="object-cover brightness-[0.94]"
-            sizes={size === 'hero' ? '300px' : '260px'}
+            sizes={size === 'hero' ? '(max-width: 640px) 180px, 300px' : '(max-width: 640px) 180px, 260px'}
+            priority={size === 'hero'}
           />
         </div>
       </div>
@@ -111,7 +112,9 @@ const MobileScreenGallery: React.FC<MobileScreenGalleryProps> = ({
             <PhoneFrame key={screen.label} screen={screen} size={size} />
           ))}
         </div>
-        <MacFrame screen={desktopScreen} />
+        <div className="hidden md:block">
+          <MacFrame screen={desktopScreen} />
+        </div>
       </motion.div>
     );
   }

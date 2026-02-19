@@ -5,14 +5,14 @@ import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import FeaturedCard from './FeaturedCard';
-import { projects } from '@/lib/projects';
+import { getFeaturedProjects } from '@/lib/projects';
 import { stagger } from '@/lib/motion';
 import { TypingAnimation } from '@/components/ui/typing-animation';
 import Button from '@/components/ui/Button';
 
 const FeaturedList: React.FC = () => {
   // Get featured projects
-  const featuredProjects = projects.filter((project) => project.featured);
+  const featuredProjects = getFeaturedProjects();
 
   // Scroll-based opacity for grid background
   const { scrollYProgress } = useScroll();

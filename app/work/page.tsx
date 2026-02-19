@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { projects } from '@/lib/projects';
+import { getFeaturedProjects, projects } from '@/lib/projects';
 import { fadeUp, stagger } from '@/lib/motion';
 import Tag from '@/components/ui/Tag';
 import ImageShimmer from '@/components/ui/ImageShimmer';
@@ -11,7 +11,7 @@ import { useImagePreload } from '@/lib/hooks/useImagePreload';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import SplitTextReveal from '@/components/ui/SplitTextReveal';
 
-const featured = projects.filter((p) => p.featured);
+const featured = getFeaturedProjects();
 const allWork = projects.filter((p) => !p.featured);
 
 export default function WorkPage() {
@@ -157,15 +157,26 @@ function ProjectCard({
             </p>
           </div>
 
-          <div className="flex items-center gap-2 text-electric opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out pt-1">
-            <span className="text-sm font-medium">
-              {isExternal ? 'Visit Site' : 'View Project'}
+          <div className="pt-1">
+            <span className="group/cta relative inline-flex items-center gap-3 rounded-full border border-white/[0.12] bg-white/[0.02] px-4 py-2 text-xs md:text-sm font-urbanist font-medium text-content-secondary transition-all duration-300 hover:-translate-y-0.5 hover:border-electric/35 hover:bg-white/[0.05] hover:text-ink">
+              <span
+                className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-electric/15 to-transparent opacity-0 transition-opacity duration-300 group-hover/cta:opacity-100"
+                aria-hidden="true"
+              />
+              <span className="relative z-10 tracking-[0.01em]">
+                {isExternal ? 'Visit Site' : 'View Project'}
+              </span>
+              <span
+                className="relative z-10 inline-flex h-5.5 w-5.5 md:h-6 md:w-6 items-center justify-center rounded-full border border-white/[0.12] bg-white/[0.04] transition-all duration-300 group-hover/cta:border-electric/45 group-hover/cta:bg-electric/12"
+                aria-hidden="true"
+              >
+                {isExternal ? (
+                  <ExternalLink className="w-3.5 h-3.5" />
+                ) : (
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/cta:translate-x-0.5" />
+                )}
+              </span>
             </span>
-            {isExternal ? (
-              <ExternalLink className="w-4 h-4" />
-            ) : (
-              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-            )}
           </div>
         </div>
       </LinkEl>
