@@ -9,6 +9,19 @@ export interface CaseStudyOverview {
   liveSiteUrl?: string;
 }
 
+export type CaseStudyResourceType = 'demo' | 'website' | 'video' | 'link';
+
+export interface CaseStudyResource {
+  id: string;
+  type: CaseStudyResourceType;
+  title: string;
+  description?: string;
+  url: string;
+  embedUrl?: string;
+  thumbnail?: string;
+  ctaLabel?: string;
+}
+
 export interface CaseStudy {
   problem: string;
   solution: string;
@@ -16,6 +29,12 @@ export interface CaseStudy {
   results: string[];
   liveSiteUrl: string;
   overview?: CaseStudyOverview;
+  resources?: CaseStudyResource[];
+}
+
+export interface ProjectMeta {
+  label: string;
+  value: string;
 }
 
 export interface Project {
@@ -30,8 +49,22 @@ export interface Project {
   role?: string;
   technologies?: string[];
   highlights?: string[];
+  meta?: ProjectMeta[];
   caseStudy?: CaseStudy;
 }
+
+const FEATURED_PROJECT_ORDER = ['coralehr', 'ticvision', 'studbud'] as const;
+
+const getFeaturedOrderIndex = (id: string) => {
+  const index = FEATURED_PROJECT_ORDER.indexOf(id as (typeof FEATURED_PROJECT_ORDER)[number]);
+  return index === -1 ? Number.MAX_SAFE_INTEGER : index;
+};
+
+const getOrderedFeaturedProjects = () => {
+  return projects
+    .filter((project) => project.featured)
+    .sort((a, b) => getFeaturedOrderIndex(a.id) - getFeaturedOrderIndex(b.id));
+};
 
 export const projects: Project[] = [
   {
@@ -51,6 +84,12 @@ export const projects: Project[] = [
       'Clinician portal piloted with 13 U.S. clinicians',
       '60+ clinician conversations',
       'Presented at TicCon 2025',
+    ],
+    meta: [
+      { label: 'Role', value: 'Co-founder · Product Designer' },
+      { label: 'Team', value: '3' },
+      { label: 'Timeline', value: 'Jan 2025 — Present' },
+      { label: 'Platform', value: 'iOS' },
     ],
     caseStudy: {
       problem:
@@ -102,6 +141,12 @@ export const projects: Project[] = [
       'USC x Techstars Founder Catalyst program',
       'HIPAA-compliant architecture on AWS',
     ],
+    meta: [
+      { label: 'Role', value: 'Co-founder · Design Engineer' },
+      { label: 'Team', value: '3' },
+      { label: 'Timeline', value: 'Sep 2025 — Present' },
+      { label: 'Platform', value: 'Web' },
+    ],
     caseStudy: {
       problem:
         'Clinicians spend a disproportionate amount of time on documentation. Most EHR software treats note-taking as form-filling — structured templates that don\'t match how clinicians actually think during a session.',
@@ -117,6 +162,34 @@ export const projects: Project[] = [
         'HIPAA-compliant architecture on AWS',
       ],
       liveSiteUrl: 'https://www.coralehr.com',
+      resources: [
+        {
+          id: 'coral-demo',
+          type: 'demo',
+          title: 'Interactive Demo',
+          description: 'Explore the live Coral workflow and patient chart experience in a sandbox environment.',
+          url: 'https://demo.coralehr.com',
+          embedUrl: 'https://demo.coralehr.com',
+          ctaLabel: 'Open Demo',
+        },
+        {
+          id: 'coral-site',
+          type: 'website',
+          title: 'CoralEHR Website',
+          description: 'Public-facing product site with positioning, context, and company narrative.',
+          url: 'https://www.coralehr.com',
+          ctaLabel: 'Visit Website',
+        },
+        {
+          id: 'coral-techstars-pitch',
+          type: 'video',
+          title: 'Techstars Program Pitch',
+          description: 'Program pitch walkthrough from USC x Techstars Founder Catalyst.',
+          url: 'https://www.youtube.com/watch?v=0eg8j7qe3Y8',
+          embedUrl: 'https://www.youtube-nocookie.com/embed/0eg8j7qe3Y8',
+          ctaLabel: 'Watch on YouTube',
+        },
+      ],
       overview: {
         headline: 'AI-native EHR for behavioral health clinicians',
         problem: 'Clinicians spend disproportionate time on documentation. EHRs treat note-taking as form-filling that doesn\'t match how clinicians think during sessions.',
@@ -129,7 +202,7 @@ export const projects: Project[] = [
         ],
         tools: ['React', 'TypeScript', 'Tailwind CSS', 'Claude API', 'AWS'],
         role: 'Co-founder — Product Design & Engineering',
-        timeline: 'Active — 2 design partners',
+        timeline: 'Sep 2025 — Present',
         liveSiteUrl: 'https://www.coralehr.com',
       },
     },
@@ -151,6 +224,12 @@ export const projects: Project[] = [
       '5 AI study tools from one content pipeline',
       'Full document ingestion with OCR fallback',
       'Privacy-first: read-only access, one-click deletion',
+    ],
+    meta: [
+      { label: 'Role', value: 'Designer & Developer' },
+      { label: 'Team', value: 'Solo' },
+      { label: 'Timeline', value: 'Jan 2026 — Present' },
+      { label: 'Platform', value: 'Web' },
     ],
     caseStudy: {
       problem:
@@ -179,7 +258,7 @@ export const projects: Project[] = [
         ],
         tools: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Google Classroom API', 'OpenAI', 'PostgreSQL + pgvector', 'Prisma', 'Vercel'],
         role: 'Designer & Developer (Solo)',
-        timeline: '2025',
+        timeline: 'Jan 2026 — Present',
         liveSiteUrl: 'https://www.studbudai.com',
       },
     },
@@ -217,7 +296,7 @@ export const projects: Project[] = [
 
 // Helper function to get featured projects
 export const getFeaturedProjects = () => {
-  return projects.filter((project) => project.featured);
+  return getOrderedFeaturedProjects();
 };
 
 // Helper function to get project by ID
@@ -234,7 +313,7 @@ export const getProjectsByTag = (tag: string) => {
 
 // Helper function to get the next featured project (for CTA navigation)
 export const getNextProject = (currentId: string) => {
-  const featured = projects.filter((p) => p.featured);
+  const featured = getOrderedFeaturedProjects();
   const currentIndex = featured.findIndex((p) => p.id === currentId);
   if (currentIndex === -1) return undefined;
   return featured[(currentIndex + 1) % featured.length];
@@ -242,7 +321,7 @@ export const getNextProject = (currentId: string) => {
 
 // Helper function to get the previous featured project (for keyboard navigation)
 export const getPrevProject = (currentId: string) => {
-  const featured = projects.filter((p) => p.featured);
+  const featured = getOrderedFeaturedProjects();
   const currentIndex = featured.findIndex((p) => p.id === currentId);
   if (currentIndex === -1) return undefined;
   return featured[(currentIndex - 1 + featured.length) % featured.length];

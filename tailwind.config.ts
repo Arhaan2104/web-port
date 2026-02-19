@@ -8,17 +8,39 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-  	extend: {
-  		colors: {
-  			obsidian: {
-  				base: '#0B0B0C',
-  				dark: '#0E121A'
-  			},
-  			ink: '#EDEDED',
-  			muted: {
-  				DEFAULT: 'hsl(var(--muted))',
-  				foreground: 'hsl(var(--muted-foreground))'
-  			},
+  		extend: {
+  			colors: {
+  				obsidian: {
+  					base: '#0B0B0C',
+  					dark: '#0E121A'
+  				},
+  				ink: '#EDEDED',
+  				content: {
+  					primary: 'var(--content-primary)',
+  					secondary: 'var(--content-secondary)',
+  					tertiary: 'var(--content-tertiary)',
+  					muted: 'var(--content-muted)',
+  					subtle: 'var(--content-subtle)',
+  					faint: 'var(--content-faint)',
+  					quiet: 'var(--content-quiet)',
+  					meta: 'var(--content-meta-label)'
+  				},
+  				surface: {
+  					'1': 'var(--surface-1)',
+  					'2': 'var(--surface-2)',
+  					'3': 'var(--surface-3)',
+  					elevated: 'var(--surface-elevated)'
+  				},
+  				line: {
+  					subtle: 'var(--line-subtle)',
+  					DEFAULT: 'var(--line-default)',
+  					strong: 'var(--line-strong)',
+  					electric: 'var(--line-electric)'
+  				},
+  				muted: {
+  					DEFAULT: 'hsl(var(--muted))',
+  					foreground: 'hsl(var(--muted-foreground))'
+  				},
   			electric: {
   				DEFAULT: '#66A3FF',
   				start: '#4DA8FF',

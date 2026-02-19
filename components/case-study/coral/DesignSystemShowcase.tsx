@@ -76,8 +76,8 @@ const DesignSystemShowcase: React.FC = () => {
     >
       {/* Coral Palette */}
       <div>
-        <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-4">Coral Palette</p>
-        <div className="grid grid-cols-5 gap-3">
+        <p className="eyebrow mb-4">Coral Palette</p>
+        <div className="grid grid-cols-3 md:grid-cols-5 gap-3">
           {coralPalette.map((s) => (
             <Swatch key={s.token} {...s} />
           ))}
@@ -86,8 +86,8 @@ const DesignSystemShowcase: React.FC = () => {
 
       {/* Ink Palette */}
       <div>
-        <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-4">Ink Palette</p>
-        <div className="grid grid-cols-5 gap-3">
+        <p className="eyebrow mb-4">Ink Palette</p>
+        <div className="grid grid-cols-3 md:grid-cols-5 gap-3">
           {inkPalette.map((s) => (
             <Swatch key={s.token} {...s} />
           ))}
@@ -96,8 +96,8 @@ const DesignSystemShowcase: React.FC = () => {
 
       {/* Surface & Structure */}
       <div>
-        <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-4">Surface & Structure</p>
-        <div className="grid grid-cols-4 gap-3">
+        <p className="eyebrow mb-4">Surface & Structure</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {surfacePalette.map((s) => (
             <Swatch key={s.token} {...s} />
           ))}
@@ -106,7 +106,7 @@ const DesignSystemShowcase: React.FC = () => {
 
       {/* Elevation */}
       <div>
-        <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-4">Elevation</p>
+        <p className="eyebrow mb-4">Elevation</p>
         <div className="grid grid-cols-3 gap-4">
           {shadows.map((s) => (
             <div key={s.level} className="flex flex-col items-center gap-3">
@@ -125,7 +125,7 @@ const DesignSystemShowcase: React.FC = () => {
 
       {/* Typography */}
       <div>
-        <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-4">Typography</p>
+        <p className="eyebrow mb-4">Typography</p>
         <div className="space-y-2">
           {[
             { weight: 400, label: 'Regular', sample: 'The quick brown fox jumps' },
@@ -155,8 +155,8 @@ const DesignSystemShowcase: React.FC = () => {
 
       {/* Border Radii */}
       <div>
-        <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-4">Border Radii</p>
-        <div className="grid grid-cols-4 gap-4">
+        <p className="eyebrow mb-4">Border Radii</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {radii.map((r) => (
             <div key={r.label} className="flex flex-col items-center gap-2">
               <div

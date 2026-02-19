@@ -22,7 +22,7 @@ export const GoogleGeminiEffect = ({
   return (
     <div className={cn("relative overflow-visible", className)}>
       {/* Text content section */}
-      <div className="relative flex flex-col items-center justify-center px-8 md:px-16 lg:px-28 text-center pt-40 md:pt-44 lg:pt-52 pb-2 overflow-visible">
+      <div className="relative flex flex-col items-center justify-center px-8 md:px-16 lg:px-28 text-center pt-28 md:pt-40 lg:pt-52 pb-2 overflow-visible">
         {title && (
           <motion.h1
             className="relative z-10 text-5xl md:text-6xl lg:text-7xl font-urbanist font-semibold leading-[1.08] tracking-[-0.02em] mb-6 max-w-5xl"
@@ -46,13 +46,13 @@ export const GoogleGeminiEffect = ({
       </div>
 
       {/* SVG Paths section - flows directly from button */}
-      <div className="relative h-[60vh] -mt-4">
+      <div className="relative h-[35vh] md:h-[60vh] -mt-4 pointer-events-none" aria-hidden="true">
         <svg
           width="1440"
           height="400"
           viewBox="0 300 1440 400"
           xmlns="http://www.w3.org/2000/svg"
-          className="absolute inset-0 w-full h-full"
+          className="absolute inset-0 w-full h-full pointer-events-none"
           preserveAspectRatio="xMidYMax slice"
         >
         <motion.path

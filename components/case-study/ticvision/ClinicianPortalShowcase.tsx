@@ -35,7 +35,7 @@ const ClinicianPortalShowcase: React.FC = () => {
       className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 md:p-10 space-y-8"
     >
       {/* Title */}
-      <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em]">
+      <p className="eyebrow">
         Clinician Portal — Doctor&apos;s View
       </p>
 
@@ -67,7 +67,7 @@ const ClinicianPortalShowcase: React.FC = () => {
 
       {/* Generated Report */}
       <div className="space-y-3 pt-4 border-t border-white/[0.04]">
-        <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em]">
+        <p className="eyebrow">
           Generated Report
         </p>
         <div className="group relative overflow-hidden rounded-xl ring-1 ring-white/[0.06]">

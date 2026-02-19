@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { fadeUp } from '@/lib/motion';
+import SectionEyebrow from '@/components/ui/SectionEyebrow';
 
 /* ─── flow node ─── */
 const Node: React.FC<{
@@ -31,6 +32,12 @@ const Arrow: React.FC<{ direction?: 'right' | 'down' }> = ({ direction = 'right'
   </span>
 );
 
+const DownArrow: React.FC = () => (
+  <div className="flex justify-center">
+    <span className="text-white/20 text-lg">↓</span>
+  </div>
+);
+
 const WorkflowDiagram: React.FC = () => {
   return (
     <motion.div
@@ -38,11 +45,10 @@ const WorkflowDiagram: React.FC = () => {
       className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 md:p-10 overflow-x-auto"
     >
       {/* Title */}
-      <p className="text-xs text-white/50 font-urbanist uppercase tracking-[0.15em] mb-8">
-        Clinician Workflow — Before State
-      </p>
+      <SectionEyebrow className="mb-8">Clinician Workflow — Before State</SectionEyebrow>
 
-      <div className="flex flex-col gap-6 min-w-[600px]">
+      <p className="text-[10px] text-white/30 font-urbanist mb-2 md:hidden">Scroll horizontally to explore →</p>
+      <div className="flex flex-col gap-6 min-w-[520px]">
         {/* Row 1: Login → Dashboard */}
         <div className="flex items-center gap-3">
           <Node label="Login" />
@@ -51,48 +57,41 @@ const WorkflowDiagram: React.FC = () => {
         </div>
 
         {/* Connector down */}
-        <div className="pl-[180px]">
-          <span className="text-white/20 text-lg">↓</span>
-        </div>
+        <DownArrow />
 
         {/* Row 2: Patient List → Patient Chart */}
-        <div className="flex items-center gap-3 pl-8">
+        <div className="flex items-center gap-3 md:pl-8">
           <Node label="Patient List" />
           <Arrow />
           <Node label="Patient Chart" sub="Info / Billing / History / Risk" />
         </div>
 
         {/* Connector down */}
-        <div className="pl-[220px]">
-          <span className="text-white/20 text-lg">↓</span>
-        </div>
+        <DownArrow />
 
         {/* Row 3: Notes Shell — HIGHLIGHTED */}
-        <div className="flex items-center gap-3 pl-16 relative">
+        <div className="flex items-center gap-3 md:pl-16">
           <Node label="Scratchpad" highlight />
           <Arrow />
           <Node label="AI Draft" highlight />
           <Arrow />
           <Node label="Note Editor" highlight />
+        </div>
 
-          {/* Annotation */}
-          <div className="absolute -right-2 top-1/2 -translate-y-1/2 hidden lg:block">
-            <div className="flex items-center gap-2 ml-4">
-              <div className="w-6 h-px bg-[#F36A59]/30" />
-              <span className="text-[#F36A59]/50 text-xs font-urbanist whitespace-nowrap">
-                core differentiator
-              </span>
-            </div>
+        <div className="hidden lg:flex justify-end">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-px bg-[#F36A59]/30" />
+            <span className="text-[#F36A59]/50 text-xs font-urbanist whitespace-nowrap">
+              core differentiator
+            </span>
           </div>
         </div>
 
         {/* Connector down */}
-        <div className="pl-[220px]">
-          <span className="text-white/20 text-lg">↓</span>
-        </div>
+        <DownArrow />
 
         {/* Row 4: Treatment Plan / Forms / Reports */}
-        <div className="flex items-center gap-3 pl-16">
+        <div className="flex items-center gap-3 md:pl-16">
           <Node label="Treatment Plan" />
           <span className="text-white/15">/</span>
           <Node label="Forms" />

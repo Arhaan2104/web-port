@@ -4,19 +4,20 @@ import React, { Suspense, useCallback } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import type { CaseStudyOverview } from '@/lib/projects';
+import type { CaseStudyOverview, CaseStudyResource } from '@/lib/projects';
 import CaseStudyOverviewPanel from './CaseStudyOverviewPanel';
 
 type ViewTab = 'overview' | 'full';
 
 interface CaseStudyTabsProps {
   overview: CaseStudyOverview;
+  resources?: CaseStudyResource[];
   children: React.ReactNode;
 }
 
 function CaseStudyTabsFallback() {
   return (
-    <div className="sticky top-20 z-40 px-6 md:px-12 lg:px-24 py-4 bg-obsidian-base shadow-[0_-20px_20px_20px_#0B0B0C]">
+    <div className="sticky top-20 z-40 px-6 md:px-12 lg:px-24 py-4 bg-obsidian-base case-tabs-shadow">
       <div className="max-w-5xl mx-auto flex justify-center">
         <div className="inline-flex rounded-full p-1.5 bg-white/[0.03] border border-white/[0.08]">
           <div className="px-7 py-2.5 text-base font-urbanist font-medium rounded-full text-ink bg-white/[0.08] border border-white/[0.12]">
@@ -31,7 +32,7 @@ function CaseStudyTabsFallback() {
   );
 }
 
-function CaseStudyTabsInner({ overview, children }: CaseStudyTabsProps) {
+function CaseStudyTabsInner({ overview, resources, children }: CaseStudyTabsProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -58,7 +59,7 @@ function CaseStudyTabsInner({ overview, children }: CaseStudyTabsProps) {
   return (
     <>
       {/* Sticky tab bar */}
-      <div className="sticky top-20 z-40 px-6 md:px-12 lg:px-24 py-4 bg-obsidian-base shadow-[0_-20px_20px_20px_#0B0B0C]">
+      <div className="sticky top-20 z-40 px-6 md:px-12 lg:px-24 py-4 bg-obsidian-base case-tabs-shadow">
         <div className="max-w-5xl mx-auto flex justify-center">
           <LayoutGroup>
             <div className="inline-flex rounded-full p-1.5 bg-white/[0.03] border border-white/[0.08]">
@@ -96,7 +97,7 @@ function CaseStudyTabsInner({ overview, children }: CaseStudyTabsProps) {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
           >
-            <CaseStudyOverviewPanel overview={overview} />
+            <CaseStudyOverviewPanel overview={overview} resources={resources} />
           </motion.div>
         ) : (
           <motion.div

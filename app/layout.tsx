@@ -88,7 +88,7 @@ export default function RootLayout({
         {/* Theme color */}
         <meta name="theme-color" content="#0B0B0C" />
       </head>
-      <body className={`${inter.className} antialiased bg-obsidian-base text-ink`} style={{ backgroundColor: '#0B0B0C', color: '#EDEDED' }}>
+      <body className={`${inter.className} antialiased bg-obsidian-base text-ink`}>
         {/* Skip link for accessibility */}
         <a
           href="#main-content"
