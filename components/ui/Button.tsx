@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, HTMLMotionProps } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import MagneticWrapper from './MagneticWrapper';
@@ -23,6 +23,14 @@ interface ButtonProps extends HTMLMotionProps<'button'> {
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ variant = 'primary', size = 'md', children, className, asChild, magnetic = false, onPointerDown, ...props }, ref) => {
     const [ripples, setRipples] = useState<RippleData[]>([]);
+    const rippleTimeoutsRef = useRef<number[]>([]);
+
+    useEffect(() => {
+      return () => {
+        rippleTimeoutsRef.current.forEach((timeoutId) => window.clearTimeout(timeoutId));
+        rippleTimeoutsRef.current = [];
+      };
+    }, []);
 
     const variants = {
       primary:
@@ -54,9 +62,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         };
         setRipples((prev) => [...prev, ripple]);
         // Clean up after animation
-        setTimeout(() => {
+        const timeoutId = window.setTimeout(() => {
           setRipples((prev) => prev.filter((r) => r.id !== ripple.id));
+          rippleTimeoutsRef.current = rippleTimeoutsRef.current.filter((id) => id !== timeoutId);
         }, 650);
+        rippleTimeoutsRef.current.push(timeoutId);
         onPointerDown?.(e);
       },
       [onPointerDown]

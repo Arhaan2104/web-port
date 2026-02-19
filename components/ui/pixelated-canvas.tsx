@@ -133,7 +133,11 @@ export const PixelatedCanvas: React.FC<PixelatedCanvasProps> = ({
 
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
-      ctx.resetTransform();
+      if (typeof ctx.resetTransform === "function") {
+        ctx.resetTransform();
+      } else {
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+      }
       ctx.scale(dpr, dpr);
 
       if (backgroundColor) {

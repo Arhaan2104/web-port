@@ -4,7 +4,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { fadeUp, stagger } from '@/lib/motion';
 import Button from '@/components/ui/Button';
-import MetaPill from '@/components/ui/MetaPill';
 import { PixelatedCanvas } from '@/components/ui/pixelated-canvas';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 
@@ -30,7 +29,7 @@ const AboutSection: React.FC = () => {
           {/* Kicker label */}
           <motion.div variants={fadeUp} className="mb-10">
             <SectionEyebrow>
-            A bit about me
+            About
             </SectionEyebrow>
           </motion.div>
 
@@ -43,48 +42,36 @@ const AboutSection: React.FC = () => {
                 variants={fadeUp}
                 className="text-2xl md:text-3xl text-content-primary font-urbanist font-medium leading-snug"
               >
-                I&apos;m Arhaan &mdash; a product designer and design engineer based in Delhi.
+                I&apos;m Arhaan &mdash; a product designer and founder working at the intersection of psychology, HCI, and product engineering.
               </motion.p>
 
               {/* Body paragraphs */}
               <motion.div variants={fadeUp} className="space-y-4">
                 <p className="text-lg text-content-tertiary leading-relaxed">
-                  I design and build products from scratch &mdash; research, UX, UI, frontend code,
-                  and everything in between. Most of my work lives at the intersection of healthcare
-                  and AI, where getting the details right matters more than usual.
+                  I study psychology and design with an HCI lens, then carry ideas through implementation.
+                  My workflow spans research, UX/UI, and frontend code so the shipped product stays true
+                  to the intent.
                 </p>
                 <p className="text-lg text-content-tertiary leading-relaxed">
-                  I built TicVision, a tic disorder tracking app with 400+ downloads that led to
-                  conversations with 60+ clinicians across the U.S. That research turned into
-                  CoralEHR, an AI-native EHR for behavioral health. I also shipped StudBud, an
-                  AI study assistant that picked up 60 users in its first three days.
+                  TicVision was my starting point in healthcare: 400+ U.S. App Store downloads,
+                  a 13-clinician pilot, and 60+ clinician conversations. Those learnings led directly
+                  to CoralEHR, an AI-native EHR for private-pay behavioral health.
                 </p>
                 <p className="text-lg text-content-tertiary leading-relaxed">
-                  I care about the gap between design and engineering &mdash; the part where most
-                  ideas lose fidelity. I write code because it makes me a better designer, and I
-                  design because it makes me write better code.
+                  I also built StudBud, an AI study assistant used by 60 students in its first three
+                  days. Outside work, I&apos;m usually following sports, exploring food spots, or testing
+                  new tech.
                 </p>
               </motion.div>
 
-              {/* Signal strip — glass pills */}
-              <motion.div variants={fadeUp} className="flex flex-wrap gap-3 pt-2">
-                {[
-                  { label: 'Shipped', value: '3 products' },
-                  { label: 'Users', value: '400+' },
-                  { label: 'Focus', value: 'Healthcare + AI' },
-                ].map((signal) => (
-                  <MetaPill
-                    key={signal.label}
-                    label={signal.label}
-                    value={signal.value}
-                  />
-                ))}
-              </motion.div>
-
-              {/* Button */}
-              <motion.div variants={fadeUp} className="pt-4">
+              <motion.div variants={fadeUp} className="pt-2">
                 <a href="https://www.linkedin.com/in/arhaangupta-/" target="_blank" rel="noopener noreferrer">
-                  <Button variant="glass" magnetic>Get in Touch</Button>
+                  <Button variant="glass" magnetic>
+                    <svg className="w-4 h-4 text-[#0A66C2]" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                    </svg>
+                    Connect
+                  </Button>
                 </a>
               </motion.div>
             </div>
@@ -115,7 +102,7 @@ const AboutSection: React.FC = () => {
                   />
                 </div>
               </div>
-              <p className="text-xs text-content-faint font-urbanist mt-4">Delhi, India</p>
+
             </motion.div>
           </div>
         </motion.div>
