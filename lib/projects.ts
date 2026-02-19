@@ -72,7 +72,7 @@ export const projects: Project[] = [
     title: 'TicVision',
     tag: 'Healthcare',
     description:
-      'Data-Driven Care for Tourette Syndrome. 400+ downloads, piloted with 13 clinicians.',
+      'Mobile and web-based Tourette\'s care platform for self-monitoring and clinician insights.',
     image: '/images/TicVision Project Image.png',
     href: '/work/ticvision',
     featured: true,
@@ -89,13 +89,13 @@ export const projects: Project[] = [
       { label: 'Role', value: 'Co-founder · Product Designer' },
       { label: 'Team', value: '3' },
       { label: 'Timeline', value: 'Jan 2025 — Present' },
-      { label: 'Platform', value: 'iOS' },
+      { label: 'Platform', value: 'Mobile + Web' },
     ],
     caseStudy: {
       problem:
-        'People with tic disorders don\'t have a good way to track what\'s happening over time. Most rely on memory at doctor visits, and clinicians want longitudinal data but have no practical tool to collect it between appointments.',
+        'Tourette\'s affects an estimated 4 million people in the U.S. and Europe, and many more worldwide, yet most still lack access to continuous, personalized care. Between appointments, people rely on memory while clinicians lack structured longitudinal symptom data.',
       solution:
-        'Designed a mobile app that lets people log tics in under 30 seconds — capturing type, severity, mood, and triggers. A companion clinician portal gives doctors context before appointments even start. We piloted it with 13 clinicians across the U.S.',
+        'TicVision is a mobile and web-based platform where patients log tic intensity, triggers, and moods in the app, and clinicians access that data through a secure portal to tailor treatment. It also works as a self-monitoring tool for people without a doctor or therapist.',
       gallery: [
         '/images/TicVision Project Image.png',
       ],
@@ -107,9 +107,9 @@ export const projects: Project[] = [
       ],
       liveSiteUrl: 'https://www.ticvision.io',
       overview: {
-        headline: 'Mobile tic disorder tracking app — 400+ downloads, piloted with 13 clinicians',
-        problem: 'People with tic disorders rely on memory at doctor visits. Clinicians want longitudinal data but have no practical tool for collecting it between appointments.',
-        solution: 'A mobile app that lets people log tics in under 30 seconds — capturing type, severity, mood, and triggers. A companion clinician portal gives doctors context before appointments even start.',
+        headline: 'Mobile and web-based Tourette\'s care platform for self-monitoring and clinician insights',
+        problem: 'Tourette\'s affects an estimated 4 million people in the U.S. and Europe, and many more worldwide, yet most lack access to continuous, personalized care.',
+        solution: 'Patients log tic intensity, triggers, and moods in the app while clinicians use a secure portal for structured symptom insights and treatment decisions. TicVision also supports self-monitoring for people without a doctor or therapist.',
         outcomes: [
           '400+ downloads on the U.S. App Store',
           'Clinician portal piloted with 13 U.S. clinicians',
@@ -128,7 +128,7 @@ export const projects: Project[] = [
     title: 'CoralEHR',
     tag: 'Healthcare AI',
     description:
-      'AI-native EHR for behavioral health — scratchpad-to-note pipeline, patient management, and treatment planning. Built at USC x Techstars.',
+      'AI-native EHR for private-pay behavioral health',
     image: '/images/Coral Project Image.png',
     href: '/work/coralehr',
     featured: true,
@@ -294,9 +294,11 @@ export const projects: Project[] = [
   },
 ];
 
+const orderedFeaturedProjects = getOrderedFeaturedProjects();
+
 // Helper function to get featured projects
 export const getFeaturedProjects = () => {
-  return getOrderedFeaturedProjects();
+  return orderedFeaturedProjects;
 };
 
 // Helper function to get project by ID
@@ -313,7 +315,7 @@ export const getProjectsByTag = (tag: string) => {
 
 // Helper function to get the next featured project (for CTA navigation)
 export const getNextProject = (currentId: string) => {
-  const featured = getOrderedFeaturedProjects();
+  const featured = orderedFeaturedProjects;
   const currentIndex = featured.findIndex((p) => p.id === currentId);
   if (currentIndex === -1) return undefined;
   return featured[(currentIndex + 1) % featured.length];
@@ -321,7 +323,7 @@ export const getNextProject = (currentId: string) => {
 
 // Helper function to get the previous featured project (for keyboard navigation)
 export const getPrevProject = (currentId: string) => {
-  const featured = getOrderedFeaturedProjects();
+  const featured = orderedFeaturedProjects;
   const currentIndex = featured.findIndex((p) => p.id === currentId);
   if (currentIndex === -1) return undefined;
   return featured[(currentIndex - 1 + featured.length) % featured.length];

@@ -2,12 +2,15 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 import { ExternalLink } from 'lucide-react';
 import { fadeUp, stagger } from '@/lib/motion';
+import { cn } from '@/lib/utils';
 import Tag from '@/components/ui/Tag';
 import MetaPill from '@/components/ui/MetaPill';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import CaseStudyResourcesCompact from './CaseStudyResourcesCompact';
+import { getCaseStudyBrandStyles } from './brandStyles';
 import { StatCard, SectionDivider } from './shared';
 import type { CaseStudyOverview, CaseStudyResource } from '@/lib/projects';
 
@@ -17,6 +20,9 @@ interface CaseStudyOverviewPanelProps {
 }
 
 export default function CaseStudyOverviewPanel({ overview, resources }: CaseStudyOverviewPanelProps) {
+  const pathname = usePathname();
+  const brandStyles = getCaseStudyBrandStyles(pathname);
+
   return (
     <motion.div
       className="px-6 md:px-12 lg:px-24 pt-12 pb-20"
@@ -37,9 +43,9 @@ export default function CaseStudyOverviewPanel({ overview, resources }: CaseStud
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
           <motion.div variants={fadeUp} className="space-y-3">
             <div className="flex gap-3 items-start">
-              <div className="w-px h-full shrink-0 bg-gradient-to-b from-electric/30 via-electric/10 to-transparent" />
+              <div className={cn('w-px h-full shrink-0', brandStyles.subheadDivider)} />
               <div>
-                <SectionEyebrow className="mb-3">The Problem</SectionEyebrow>
+                <SectionEyebrow className={cn('mb-3', brandStyles.subheadText)}>The Problem</SectionEyebrow>
                 <p className="text-lg text-content-secondary font-urbanist leading-relaxed">{overview.problem}</p>
               </div>
             </div>
@@ -47,9 +53,9 @@ export default function CaseStudyOverviewPanel({ overview, resources }: CaseStud
 
           <motion.div variants={fadeUp} className="space-y-3">
             <div className="flex gap-3 items-start">
-              <div className="w-px h-full shrink-0 bg-gradient-to-b from-electric/30 via-electric/10 to-transparent" />
+              <div className={cn('w-px h-full shrink-0', brandStyles.subheadDivider)} />
               <div>
-                <SectionEyebrow className="mb-3">The Solution</SectionEyebrow>
+                <SectionEyebrow className={cn('mb-3', brandStyles.subheadText)}>The Solution</SectionEyebrow>
                 <p className="text-lg text-content-secondary font-urbanist leading-relaxed">{overview.solution}</p>
               </div>
             </div>
@@ -60,7 +66,7 @@ export default function CaseStudyOverviewPanel({ overview, resources }: CaseStud
 
         {/* Outcomes */}
         <motion.div variants={fadeUp} className="space-y-4">
-          <SectionEyebrow>Outcomes</SectionEyebrow>
+          <SectionEyebrow className={brandStyles.subheadText}>Outcomes</SectionEyebrow>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {overview.outcomes.map((outcome, i) => (
               <StatCard key={i} metric={outcome} description="" index={i} />

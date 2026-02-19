@@ -3,11 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { ArrowLeft, ArrowRight, ExternalLink, Expand } from 'lucide-react';
 import { fadeUp, fadeIn, stagger } from '@/lib/motion';
 import { useCountUp, parseMetric } from '@/lib/hooks/useCountUp';
+import { cn } from '@/lib/utils';
 import Tag from '@/components/ui/Tag';
 import Button from '@/components/ui/Button';
 import ImageShimmer from '@/components/ui/ImageShimmer';
@@ -16,6 +17,7 @@ import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import GlassCard from '@/components/ui/GlassCard';
 import StatTile from '@/components/ui/StatTile';
 import ImageLightbox from './ImageLightbox';
+import { getCaseStudyBrandStyles } from './brandStyles';
 import type { Project } from '@/lib/projects';
 
 /* ────────────────────────────────────────────────────────
@@ -231,6 +233,8 @@ interface SideLabelProps {
 
 export const SideLabel: React.FC<SideLabelProps> = ({ label, children }) => {
   const isBlank = !label || label.trim() === '';
+  const pathname = usePathname();
+  const brandStyles = getCaseStudyBrandStyles(pathname);
 
   return (
     <motion.div
@@ -240,9 +244,9 @@ export const SideLabel: React.FC<SideLabelProps> = ({ label, children }) => {
       {/* Sticky label on desktop — pins while content scrolls */}
       <div className="flex gap-3 lg:sticky lg:top-28 lg:self-start lg:h-fit">
         {!isBlank && (
-          <div className="w-px shrink-0 bg-gradient-to-b from-electric/30 via-electric/10 to-transparent" />
+          <div className={cn('w-px shrink-0', brandStyles.subheadDivider)} />
         )}
-        <SectionEyebrow className="lg:pt-1">
+        <SectionEyebrow className={cn('lg:pt-1', !isBlank && brandStyles.subheadText)}>
           {label}
         </SectionEyebrow>
       </div>

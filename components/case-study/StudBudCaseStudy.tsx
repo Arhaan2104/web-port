@@ -376,7 +376,7 @@ const StudBudCaseStudy: React.FC<StudBudCaseStudyProps> = ({ project }) => {
       <Section variant="highlighted">
         <motion.p
           variants={fadeUp}
-          className="eyebrow mb-8"
+          className="eyebrow mb-8 bg-gradient-to-r from-[#8FA98F] to-[#C3D3C3] bg-clip-text text-transparent"
         >
           Outcomes
         </motion.p>

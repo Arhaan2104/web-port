@@ -21,6 +21,7 @@ export function useCountUp({ end, duration = 1500, delay = 0 }: UseCountUpOption
 
   useEffect(() => {
     if (!isInView || hasAnimated.current) return;
+    let frameId: number | null = null;
 
     // Respect prefers-reduced-motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -38,18 +39,22 @@ export function useCountUp({ end, duration = 1500, delay = 0 }: UseCountUpOption
         const elapsed = now - startTime;
         const progress = Math.min(elapsed / duration, 1);
         const easedProgress = easeOutQuart(progress);
+        const nextValue = Math.round(easedProgress * end);
 
-        setValue(Math.round(easedProgress * end));
+        setValue((prev) => (prev === nextValue ? prev : nextValue));
 
         if (progress < 1) {
-          requestAnimationFrame(animate);
+          frameId = requestAnimationFrame(animate);
         }
       }
 
-      requestAnimationFrame(animate);
+      frameId = requestAnimationFrame(animate);
     }, delay);
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+      if (frameId) cancelAnimationFrame(frameId);
+    };
   }, [isInView, end, duration, delay]);
 
   return [value, ref];

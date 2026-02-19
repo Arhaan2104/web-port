@@ -45,12 +45,12 @@ const TicVisionCaseStudy: React.FC<TicVisionCaseStudyProps> = ({ project }) => {
         tag="Healthcare"
         title="TicVision"
         titleClassName="bg-gradient-to-r from-[#66A3FF] to-[#A9CCFF] bg-clip-text text-transparent"
-        subtitle="Data-Driven Care for Tourette Syndrome"
+        subtitle="Data-driven care for Tourette syndrome"
         meta={[
           { label: 'Role', value: 'Product Designer' },
           { label: 'Team', value: '3' },
           { label: 'Timeline', value: 'Jan 2025 — Present' },
-          { label: 'Platform', value: 'iOS' },
+          { label: 'Platform', value: 'Mobile + Web' },
         ]}
         readingTime={7}
       />
@@ -81,13 +81,13 @@ const TicVisionCaseStudy: React.FC<TicVisionCaseStudyProps> = ({ project }) => {
         <SideLabel label="Overview">
           <div className="space-y-6">
             <Body>
-              TicVision is a mobile app that helps people with tic disorders log their tics, spot patterns, and share data with their doctors.
+              Tourette&apos;s affects an estimated 4 million people in the U.S. and Europe, and many more worldwide, yet most still lack access to continuous, personalized care.
             </Body>
             <Body>
-              I led the design end-to-end — research, UX, UI, prototyping — and worked closely with two engineers to ship it on the U.S. App Store. The project started in January 2025 as a team of three, grew into a startup, and reached 400+ downloads. We also built and piloted a companion clinician portal with 13 doctors across the U.S.
+              TicVision is a mobile and web-based platform that helps individuals with Tourette&apos;s track their tics and gives clinicians structured insights into patient symptoms. Patients log tic intensity, triggers, and moods in the app while clinicians access this data through a secure portal to tailor treatment.
             </Body>
             <Body>
-              Through conversations with 60+ clinicians, we learned that the real gap wasn&apos;t on the patient side — it was in the clinical workflow. That insight led us to pivot to CoralEHR, where we&apos;re building on everything TicVision taught us.
+              TicVision also acts as a self-monitoring tool for people without a doctor or therapist. I led design end-to-end and worked with two engineers to ship the product, reach 400+ downloads, and pilot the clinician portal with 13 doctors across the U.S.
             </Body>
           </div>
         </SideLabel>
@@ -116,13 +116,13 @@ const TicVisionCaseStudy: React.FC<TicVisionCaseStudyProps> = ({ project }) => {
         <SideLabel label="The Problem">
           <div className="space-y-6">
             <Body>
-              People with tic disorders — Tourette&apos;s, chronic motor tics, etc. — don&apos;t have a good way to track what&apos;s happening with their body over time. Most rely on memory when they see their doctor, which means appointments are based on rough recollections rather than real data.
+              Tourette&apos;s affects an estimated 4 million people in the U.S. and Europe, and many more worldwide. Even with that scale, continuous and personalized care is still hard to access for many patients.
             </Body>
             <Body>
-              On the clinician side, neurologists and psychiatrists told us the same thing: they want longitudinal patient data, but there&apos;s no practical tool for collecting it between visits.
+              People often rely on memory during appointments, and clinicians told us they lacked structured longitudinal symptom data between visits.
             </Body>
             <Body>
-              Existing health trackers aren&apos;t built for this. They don&apos;t capture the specific combination of data that matters — the type of tic, its severity, what mood you were in, what might have triggered it, and when it happened.
+              Existing trackers also miss the exact data needed for care: tic intensity, triggers, moods, and patterns over time that can support treatment decisions.
             </Body>
           </div>
         </SideLabel>
@@ -284,7 +284,7 @@ const TicVisionCaseStudy: React.FC<TicVisionCaseStudyProps> = ({ project }) => {
         <SideLabel label="Clinician Portal">
           <div className="space-y-6">
             <Body>
-              Alongside the patient app, we built a companion web portal where clinicians could view their patients&apos; tic data. Patients connect with their doctor through a 6-digit code in the app, and once linked, the clinician gets access to their logged data.
+              Alongside the patient app, we built a secure companion web portal where clinicians can view their patients&apos; tic data. Patients connect with their doctor through a 6-digit code in the app, and once linked, the clinician gets access to structured symptom logs.
             </Body>
             <Body>
               We designed this around the reality that most people see their neurologist once every few months — the portal gives the doctor context before the appointment even starts.
@@ -315,7 +315,7 @@ const TicVisionCaseStudy: React.FC<TicVisionCaseStudyProps> = ({ project }) => {
       <Section variant="highlighted">
         <motion.p
           variants={fadeUp}
-          className="eyebrow mb-8"
+          className="eyebrow mb-8 bg-gradient-to-r from-[#66A3FF] to-[#A9CCFF] bg-clip-text text-transparent"
         >
           Outcomes
         </motion.p>

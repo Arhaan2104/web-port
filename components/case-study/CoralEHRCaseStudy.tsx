@@ -42,7 +42,7 @@ const CoralEHRCaseStudy: React.FC<CoralEHRCaseStudyProps> = ({ project }) => {
         tag="Healthcare AI"
         title="CoralEHR"
         titleClassName="bg-gradient-to-r from-[#F36A59] to-[#FFB3A8] bg-clip-text text-transparent"
-        subtitle="An AI-native EHR for behavioral health clinicians."
+        subtitle="AI-native EHR for private-pay behavioral health"
         meta={[
           { label: 'Role', value: 'Co-founder — Product Design & Engineering' },
           { label: 'Program', value: 'USC x Techstars Founder Catalyst' },
