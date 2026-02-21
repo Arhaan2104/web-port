@@ -15,7 +15,7 @@ const featured = getFeaturedProjects();
 const allWork = projects.filter((p) => !p.featured);
 const PROJECT_BRAND_RGB: Record<string, string> = {
   coralehr: '243,106,89',
-  ticvision: '102,163,255',
+  ticvision: '88,156,180',
   studbud: '143,169,143',
   leanspark: '216,164,92',
   flowatlas: '108,188,198',
@@ -37,12 +37,9 @@ export default function WorkPage() {
           <SplitTextReveal
             text="Work"
             as="h1"
-            className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-display"
+            className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-display"
           />
-          <p className="text-xl text-white/70 max-w-3xl">
-            A collection of projects that showcase my approach to solving
-            complex problems through thoughtful design and technology.
-          </p>
+          <div className="h-px w-16 bg-white/20" aria-hidden="true" />
         </motion.div>
 
         {/* ── Featured ── */}
@@ -63,13 +60,17 @@ export default function WorkPage() {
             animate="animate"
           >
             {featured.map((project, index) => (
-              <ProjectCard
+              <div
                 key={project.id}
-                project={project}
-                priority={index < 2}
-                depthEnhanced
-                onHover={() => preloadImage(project.image)}
-              />
+                className="first:border-t-0 border-t border-white/[0.06] pt-8 first:pt-0 md:border-t-0 md:pt-0"
+              >
+                <ProjectCard
+                  project={project}
+                  priority={index < 2}
+                  depthEnhanced
+                  onHover={() => preloadImage(project.image)}
+                />
+              </div>
             ))}
           </motion.div>
         </section>
@@ -93,14 +94,18 @@ export default function WorkPage() {
             whileInView="animate"
             viewport={{ once: true, margin: '-60px' }}
           >
-            {allWork.map((project) => (
-              <ProjectCard
+            {allWork.map((project, index) => (
+              <div
                 key={project.id}
-                project={project}
-                priority={false}
-                depthEnhanced={false}
-                onHover={() => preloadImage(project.image)}
-              />
+                className="first:border-t-0 border-t border-white/[0.06] pt-8 first:pt-0 md:border-t-0 md:pt-0"
+              >
+                <ProjectCard
+                  project={project}
+                  priority={false}
+                  depthEnhanced={false}
+                  onHover={() => preloadImage(project.image)}
+                />
+              </div>
             ))}
           </motion.div>
         </section>

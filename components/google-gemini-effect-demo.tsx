@@ -130,6 +130,7 @@ export default function GoogleGeminiEffectDemo({
             <span className="block mt-2">
               <EncryptedText
                 text="human-centred"
+                className="whitespace-nowrap"
                 encryptedClassName="text-electric/40"
                 revealedClassName="gradient-text"
                 revealDelayMs={121}
