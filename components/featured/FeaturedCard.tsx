@@ -22,7 +22,7 @@ interface FeaturedCardProps {
 
 const PROJECT_BRAND_RGB: Record<string, string> = {
   coralehr: '243,106,89',
-  ticvision: '102,163,255',
+  ticvision: '88,156,180',
   studbud: '143,169,143',
 };
 
@@ -43,6 +43,14 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({ project, index, isReversed 
   const imageVariants = isReversed ? fadeLeft : fadeRight;
   const roleMeta = project.meta?.find((item) => item.label.toLowerCase() === 'role');
   const metaWithoutRole = project.meta?.filter((item) => item.label.toLowerCase() !== 'role');
+  const titleContent = project.id === 'ticvision' ? (
+    <span className="inline-flex whitespace-nowrap">
+      <span>Tic</span>
+      <span className="-ml-[0.04em]">Vision</span>
+    </span>
+  ) : (
+    project.title
+  );
   const brandRgb = PROJECT_BRAND_RGB[project.id] ?? '160,160,160';
   const pointerVars = {
     '--px': '50%',
@@ -81,7 +89,9 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({ project, index, isReversed 
 
         <div className="space-y-4">
           <div className="flex flex-col gap-1.5 md:flex-row md:items-end md:gap-4">
-            <h3 className="text-3xl md:text-4xl font-urbanist font-bold text-ink">{project.title}</h3>
+            <h3 className="text-3xl md:text-4xl font-urbanist font-bold" style={{ color: `rgb(${brandRgb})` }}>
+              {titleContent}
+            </h3>
             {roleMeta && (
               <div className="flex items-center gap-2 md:pb-1">
                 <span className="hidden md:block h-4 w-px bg-white/20" aria-hidden="true" />
@@ -95,7 +105,13 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({ project, index, isReversed 
           {metaWithoutRole && metaWithoutRole.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {metaWithoutRole.map((item) => (
-                <MetaPill key={item.label} label={item.label} value={item.value} size="sm" />
+                <MetaPill
+                  key={item.label}
+                  label={item.label}
+                  value={item.value}
+                  size="sm"
+                  className={item.label.toLowerCase() === 'platform' ? 'hidden sm:inline-flex' : undefined}
+                />
               ))}
             </div>
           )}

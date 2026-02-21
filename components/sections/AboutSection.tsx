@@ -6,7 +6,6 @@ import { fadeUp, stagger } from '@/lib/motion';
 import Button from '@/components/ui/Button';
 import MetaPill from '@/components/ui/MetaPill';
 import { PixelatedCanvas } from '@/components/ui/pixelated-canvas';
-import SectionEyebrow from '@/components/ui/SectionEyebrow';
 
 const AboutSection: React.FC = () => {
   return (
@@ -27,19 +26,15 @@ const AboutSection: React.FC = () => {
           whileInView="animate"
           viewport={{ once: true, margin: '-100px' }}
         >
-          {/* Kicker label */}
-          <motion.div variants={fadeUp} className="mb-3">
-            <SectionEyebrow>
-            Who am I
-            </SectionEyebrow>
-          </motion.div>
-
           <motion.h2
             variants={fadeUp}
-            className="text-4xl md:text-5xl font-urbanist font-semibold tracking-tight text-ink mb-10"
+            className="text-4xl md:text-5xl font-urbanist font-semibold tracking-tight text-ink mb-4"
           >
             About Me
           </motion.h2>
+          <motion.div variants={fadeUp} className="mb-10">
+            <div className="h-px w-16 bg-white/20" aria-hidden="true" />
+          </motion.div>
 
           {/* Two-column grid: text-heavy asymmetric */}
           <div className="grid grid-cols-1 lg:grid-cols-[1.18fr_1fr] xl:grid-cols-[1.24fr_1fr] gap-3 lg:gap-2">
