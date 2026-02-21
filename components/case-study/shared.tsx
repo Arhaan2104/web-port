@@ -55,14 +55,23 @@ export const BackNav: React.FC<BackNavProps> = ({
   href = '/work',
   label = 'Back to Work',
 }) => (
-  <div className="px-6 md:px-12 lg:px-24 mb-12">
+  <div className="px-6 md:px-12 lg:px-24 mb-8 md:mb-10">
     <div className="max-w-5xl mx-auto">
       <Link
         href={href}
-        className="inline-flex items-center gap-2 text-sm text-content-subtle hover:text-content-secondary transition-colors duration-200 font-urbanist"
+        className="group/cta relative inline-flex items-center gap-3 rounded-full border border-white/[0.12] bg-white/[0.02] px-4 py-2 text-xs md:text-sm font-urbanist font-medium text-content-secondary transition-all duration-300 hover:-translate-y-0.5 hover:border-electric/35 hover:bg-white/[0.05] hover:text-ink"
       >
-        <ArrowLeft className="w-4 h-4" />
-        {label}
+        <span
+          className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-electric/15 to-transparent opacity-0 transition-opacity duration-300 group-hover/cta:opacity-100"
+          aria-hidden="true"
+        />
+        <span
+          className="relative z-10 inline-flex h-5.5 w-5.5 md:h-6 md:w-6 items-center justify-center rounded-full border border-white/[0.12] bg-white/[0.04] transition-all duration-300 group-hover/cta:border-electric/45 group-hover/cta:bg-electric/12"
+          aria-hidden="true"
+        >
+          <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 group-hover/cta:-translate-x-0.5" />
+        </span>
+        <span className="relative z-10 tracking-[0.01em]">{label}</span>
       </Link>
     </div>
   </div>
@@ -76,6 +85,7 @@ export const BackNav: React.FC<BackNavProps> = ({
 export interface HeroMetaItem {
   label: string;
   value: string;
+  href?: string;
 }
 
 interface CaseStudyHeroProps {
@@ -155,7 +165,20 @@ export const CaseStudyHero: React.FC<CaseStudyHeroProps> = ({
           <MetaPill
             key={item.label}
             label={item.label}
-            value={item.value}
+            value={
+              item.href ? (
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors duration-200 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric/40 rounded-sm"
+                >
+                  {item.value}
+                </a>
+              ) : (
+                item.value
+              )
+            }
           />
         ))}
       </motion.div>
@@ -536,7 +559,7 @@ export const CaseStudyCTA: React.FC<CaseStudyCTAProps> = ({
             {/* Next project card */}
             {nextProject && (
               <Link href={nextProject.href} className="group">
-                <GlassCard className="flex items-center gap-4 p-4 min-w-[280px]" interactive>
+                <GlassCard className="flex w-full sm:w-auto items-center gap-4 p-4 min-w-0 sm:min-w-[280px]" interactive>
                   <div className="relative w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-white/[0.04]">
                     <Image
                       src={nextProject.image}

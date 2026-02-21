@@ -32,6 +32,7 @@
 /* Body base styles - outside @layer for higher specificity */
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -41,6 +42,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   position: relative;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* Base styles */

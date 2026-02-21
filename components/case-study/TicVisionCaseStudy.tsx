@@ -28,9 +28,10 @@ import {
 
 interface TicVisionCaseStudyProps {
   project: Project;
+  lockFullCaseStudy?: boolean;
 }
 
-const TicVisionCaseStudy: React.FC<TicVisionCaseStudyProps> = ({ project }) => {
+const TicVisionCaseStudy: React.FC<TicVisionCaseStudyProps> = ({ project, lockFullCaseStudy = false }) => {
   const nextProject = getNextProject('ticvision');
   const prevProject = getPrevProject('ticvision');
   const resources = project.caseStudy?.resources ?? [];
@@ -44,10 +45,11 @@ const TicVisionCaseStudy: React.FC<TicVisionCaseStudyProps> = ({ project }) => {
       <CaseStudyHero
         tag="Healthcare"
         title="TicVision"
-        titleClassName="bg-gradient-to-r from-[#66A3FF] to-[#A9CCFF] bg-clip-text text-transparent"
+        titleClassName="bg-gradient-to-r from-[#DFEBEE] to-[#589CB4] bg-clip-text text-transparent"
         subtitle="Data-driven care for Tourette syndrome"
         meta={[
           { label: 'Role', value: 'Product Designer' },
+          { label: 'Website', value: 'www.ticvision.io', href: 'https://www.ticvision.io' },
           { label: 'Team', value: '3' },
           { label: 'Timeline', value: 'Jan 2025 — Present' },
           { label: 'Platform', value: 'Mobile + Web' },
@@ -72,7 +74,11 @@ const TicVisionCaseStudy: React.FC<TicVisionCaseStudyProps> = ({ project }) => {
       </motion.section>
 
       {/* ── TABS ── */}
-      <CaseStudyTabs overview={project.caseStudy!.overview!} resources={resources}>
+      <CaseStudyTabs
+        overview={project.caseStudy!.overview!}
+        resources={resources}
+        lockFullCaseStudy={lockFullCaseStudy}
+      >
 
       <SectionDivider />
 
@@ -315,7 +321,7 @@ const TicVisionCaseStudy: React.FC<TicVisionCaseStudyProps> = ({ project }) => {
       <Section variant="highlighted">
         <motion.p
           variants={fadeUp}
-          className="eyebrow mb-8 bg-gradient-to-r from-[#66A3FF] to-[#A9CCFF] bg-clip-text text-transparent"
+          className="eyebrow mb-8 bg-gradient-to-r from-[#DFEBEE] to-[#589CB4] bg-clip-text text-transparent"
         >
           Outcomes
         </motion.p>

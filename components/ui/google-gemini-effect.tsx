@@ -20,9 +20,9 @@ export const GoogleGeminiEffect = ({
   className?: string;
 }) => {
   return (
-    <div className={cn("relative overflow-visible", className)}>
+    <div className={cn("relative h-[100svh] md:h-[108dvh] min-h-screen overflow-hidden flex flex-col", className)}>
       {/* Text content section */}
-      <div className="relative flex flex-col items-center justify-center px-8 md:px-16 lg:px-28 text-center pt-28 md:pt-40 lg:pt-52 pb-2 overflow-visible">
+      <div className="relative z-[2] flex-1 flex flex-col items-center justify-center px-8 md:px-16 lg:px-28 text-center pt-28 md:pt-36 lg:pt-44 pb-2 overflow-visible">
         {title && (
           <motion.h1
             className="relative z-10 text-5xl md:text-6xl lg:text-7xl font-urbanist font-semibold leading-[1.08] tracking-[-0.02em] mb-6 max-w-5xl"
@@ -46,13 +46,13 @@ export const GoogleGeminiEffect = ({
       </div>
 
       {/* SVG Paths section - flows directly from button */}
-      <div className="relative h-[35vh] md:h-[60vh] -mt-4 pointer-events-none" aria-hidden="true">
+      <div className="relative z-[1] h-[40svh] md:h-[52svh] min-h-[220px] md:min-h-[380px] mt-3 pointer-events-none overflow-visible" aria-hidden="true">
         <svg
           width="1440"
           height="400"
-          viewBox="0 300 1440 400"
+          viewBox="0 260 1440 440"
           xmlns="http://www.w3.org/2000/svg"
-          className="absolute inset-0 w-full h-full pointer-events-none"
+          className="absolute inset-x-0 bottom-0 w-full h-full pointer-events-none"
           preserveAspectRatio="xMidYMax slice"
         >
         <motion.path

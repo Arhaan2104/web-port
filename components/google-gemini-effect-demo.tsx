@@ -1,28 +1,73 @@
 "use client";
 import { useScroll, useTransform } from "framer-motion";
 import React from "react";
+import dynamic from 'next/dynamic';
+import { motion } from 'framer-motion';
 import { GoogleGeminiEffect } from "@/components/ui/google-gemini-effect";
 import { EncryptedText } from "@/components/ui/encrypted-text";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 
-export default function GoogleGeminiEffectDemo() {
+const ASMRBackground = dynamic(() => import('@/components/hero/ASMRBackground'), { ssr: false });
+
+interface GoogleGeminiEffectDemoProps {
+  enableHero3D?: boolean;
+  hero3DIntensity?: 'low' | 'medium' | 'high';
+}
+
+export default function GoogleGeminiEffectDemo({
+  enableHero3D = true,
+  hero3DIntensity = 'medium',
+}: GoogleGeminiEffectDemoProps) {
   const ref = React.useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
-  const pathLengthFirst = useTransform(scrollYProgress, [0.1, 0.8], [0.2, 1.2]);
-  const pathLengthSecond = useTransform(scrollYProgress, [0.15, 0.8], [0.15, 1.2]);
-  const pathLengthThird = useTransform(scrollYProgress, [0.2, 0.8], [0.1, 1.2]);
-  const pathLengthFourth = useTransform(scrollYProgress, [0.25, 0.8], [0.05, 1.2]);
-  const pathLengthFifth = useTransform(scrollYProgress, [0.3, 0.8], [0, 1.2]);
+  const pathLengthFirst = useTransform(scrollYProgress, [0.04, 0.46], [0.22, 1.08]);
+  const pathLengthSecond = useTransform(scrollYProgress, [0.06, 0.48], [0.18, 1.05]);
+  const pathLengthThird = useTransform(scrollYProgress, [0.08, 0.5], [0.14, 1.02]);
+  const pathLengthFourth = useTransform(scrollYProgress, [0.1, 0.52], [0.1, 1]);
+  const pathLengthFifth = useTransform(scrollYProgress, [0.12, 0.54], [0.04, 0.97]);
+  const ambianceOpacity = useTransform(scrollYProgress, [0, 0.16, 0.46, 0.8], [0.72, 0.8, 0.4, 0.06]);
+  const ambianceIntensity = hero3DIntensity === 'low'
+    ? 'subtle'
+    : hero3DIntensity === 'high'
+      ? 'intense'
+      : 'medium';
 
   return (
     <div
-      className="bg-obsidian-base w-full relative overflow-visible"
+      className="bg-obsidian-base w-full relative overflow-hidden"
       ref={ref}
     >
+      {enableHero3D && (
+        <motion.div
+          className="absolute inset-0 pointer-events-none z-[1] overflow-hidden"
+          style={{ opacity: ambianceOpacity }}
+          aria-hidden="true"
+        >
+          <div
+            className="absolute inset-0"
+            style={{
+              WebkitMaskImage:
+                'radial-gradient(circle at 50% 34%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.92) 52%, rgba(0,0,0,0.32) 82%, rgba(0,0,0,0) 100%)',
+              maskImage:
+                'radial-gradient(circle at 50% 34%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.92) 52%, rgba(0,0,0,0.32) 82%, rgba(0,0,0,0) 100%)',
+            }}
+          >
+            <ASMRBackground
+              particleCount={380}
+              magneticRadius={250}
+              intensity={ambianceIntensity}
+              accentColor="102, 163, 255"
+            />
+          </div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_34%,rgba(102,163,255,0.14),rgba(102,163,255,0.05)_36%,transparent_74%)]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-obsidian-base/[0.02] to-obsidian-base/[0.35]" />
+        </motion.div>
+      )}
+
       <GoogleGeminiEffect
         pathLengths={[
           pathLengthFirst,

@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
 import { getProjectById, projects } from '@/lib/projects';
-import Breadcrumbs from '@/components/case-study/Breadcrumbs';
 import CaseStudyLayout from '@/components/case-study/CaseStudyLayout';
 import CoralEHRCaseStudy from '@/components/case-study/CoralEHRCaseStudy';
 import TicVisionCaseStudy from '@/components/case-study/TicVisionCaseStudy';
@@ -30,6 +29,8 @@ export async function generateMetadata({ params }: PageProps) {
 export default async function CaseStudyPage({ params }: PageProps) {
   const { slug } = await params;
   const project = getProjectById(slug);
+  const lockFullCaseStudy =
+    process.env.VERCEL_ENV === 'production' && process.env.VERCEL_GIT_COMMIT_REF === 'main';
 
   if (!project || !project.caseStudy) {
     notFound();
@@ -37,11 +38,11 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
   let content;
   if (slug === 'coralehr') {
-    content = <CoralEHRCaseStudy project={project} />;
+    content = <CoralEHRCaseStudy project={project} lockFullCaseStudy={lockFullCaseStudy} />;
   } else if (slug === 'ticvision') {
-    content = <TicVisionCaseStudy project={project} />;
+    content = <TicVisionCaseStudy project={project} lockFullCaseStudy={lockFullCaseStudy} />;
   } else if (slug === 'studbud') {
-    content = <StudBudCaseStudy project={project} />;
+    content = <StudBudCaseStudy project={project} lockFullCaseStudy={lockFullCaseStudy} />;
   } else {
     content = <CaseStudyLayout project={project} />;
   }
@@ -64,7 +65,6 @@ export default async function CaseStudyPage({ params }: PageProps) {
         />
       </div>
       <div className="relative">
-        <Breadcrumbs projectTitle={project.title} />
         {content}
       </div>
     </div>
