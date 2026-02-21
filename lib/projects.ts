@@ -42,6 +42,7 @@ export interface Project {
   title: string;
   tag: string;
   description: string;
+  featuredProof?: string;
   image: string;
   href: string;
   featured?: boolean;
@@ -72,7 +73,8 @@ export const projects: Project[] = [
     title: 'TicVision',
     tag: 'Healthcare',
     description:
-      'Mobile and web-based Tourette\'s care platform for self-monitoring and clinician insights.',
+      'Data-driven care for Tourette syndrome',
+    featuredProof: '400+ U.S. App Store downloads, 13-clinician pilot. Pivoted to CoralEHR.',
     image: '/images/TicVision Project Image.png',
     href: '/work/ticvision',
     featured: true,
@@ -129,10 +131,11 @@ export const projects: Project[] = [
     tag: 'Healthcare AI',
     description:
       'AI-native EHR for private-pay behavioral health',
+    featuredProof: 'Currently piloting with U.S. clinicians.',
     image: '/images/Coral Project Image.png',
     href: '/work/coralehr',
     featured: true,
-    year: '2024',
+    year: '2025',
     role: 'Co-founder — Product Design & Engineering',
     technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Claude API', 'AWS'],
     highlights: [
@@ -212,11 +215,12 @@ export const projects: Project[] = [
     title: 'StudBud',
     tag: 'EdTech AI',
     description:
-      'AI study assistant that syncs with Google Classroom — chat with course content, generate flashcards and quizzes. 60 users in first 3 days.',
+      'AI study assistant for Google Classroom.',
+    featuredProof: '60 users in first 3 days.',
     image: '/images/studbud Project Image..png',
     href: '/work/studbud',
     featured: true,
-    year: '2025',
+    year: '2026',
     role: 'Designer & Developer (Solo)',
     technologies: ['Next.js', 'TypeScript', 'Google Classroom API', 'OpenAI', 'PostgreSQL + pgvector'],
     highlights: [
@@ -267,27 +271,27 @@ export const projects: Project[] = [
   {
     id: 'leanspark',
     title: 'LeanSpark',
-    tag: 'Startup Tools',
+    tag: 'Book Website',
     description:
-      'Lean startup validation toolkit — helps founders test ideas faster with structured experiments.',
+      'Website for a book on frugal entrepreneurship by Cambridge and Ashoka professors.',
     image: '/images/leasnparkimg.png',
     href: 'https://www.leansparkbook.com',
     featured: false,
-    year: '2024',
+    year: '2025',
     role: 'Product Designer',
     technologies: ['Figma', 'React', 'TypeScript'],
     highlights: [],
   },
   {
     id: 'flowatlas',
-    title: 'FlowAtlas',
-    tag: 'Productivity',
+    title: 'flowatlas',
+    tag: 'DevTool',
     description:
-      'Visual workflow mapping tool for teams — turn messy processes into clear, shareable flows.',
+      'Internal tool that generates help docs and FAQs from a codebase.',
     image: '/images/flowatlasimg.png',
     href: 'https://www.flowatlasai.com',
     featured: false,
-    year: '2024',
+    year: '2025',
     role: 'Product Designer',
     technologies: ['Figma', 'Next.js', 'TypeScript'],
     highlights: [],

@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { fadeUp, stagger } from '@/lib/motion';
 import Button from '@/components/ui/Button';
+import MetaPill from '@/components/ui/MetaPill';
 import { PixelatedCanvas } from '@/components/ui/pixelated-canvas';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 
@@ -19,7 +20,7 @@ const AboutSection: React.FC = () => {
         aria-hidden="true"
       />
 
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-[96rem] mx-auto">
         <motion.div
           variants={stagger()}
           initial="initial"
@@ -27,14 +28,21 @@ const AboutSection: React.FC = () => {
           viewport={{ once: true, margin: '-100px' }}
         >
           {/* Kicker label */}
-          <motion.div variants={fadeUp} className="mb-10">
+          <motion.div variants={fadeUp} className="mb-3">
             <SectionEyebrow>
-            About
+            Who am I
             </SectionEyebrow>
           </motion.div>
 
+          <motion.h2
+            variants={fadeUp}
+            className="text-4xl md:text-5xl font-urbanist font-semibold tracking-tight text-ink mb-10"
+          >
+            About Me
+          </motion.h2>
+
           {/* Two-column grid: text-heavy asymmetric */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-12 lg:gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.18fr_1fr] xl:grid-cols-[1.24fr_1fr] gap-3 lg:gap-2">
             {/* Left Column: Text content */}
             <div className="space-y-6">
               {/* Lead-in sentence */}
@@ -48,20 +56,38 @@ const AboutSection: React.FC = () => {
               {/* Body paragraphs */}
               <motion.div variants={fadeUp} className="space-y-4">
                 <p className="text-lg text-content-tertiary leading-relaxed">
-                  I study psychology and design with an HCI lens, then carry ideas through implementation.
-                  My workflow spans research, UX/UI, and frontend code so the shipped product stays true
-                  to the intent.
+                  I use behavioral insight to understand how humans interact with technology, which helps build user-centred products. Then carry it through
+                  research → UX/UI → frontend so the shipped product stays true to my vision for it.
                 </p>
                 <p className="text-lg text-content-tertiary leading-relaxed">
-                  TicVision was my starting point in healthcare: 400+ U.S. App Store downloads,
-                  a 13-clinician pilot, and 60+ clinician conversations. Those learnings led directly
+                  I started in healthcare with TicVision (400+ U.S. App Store downloads,
+                  a 13-clinician pilot, and 60+ clinician conversations). Those learnings led directly
                   to CoralEHR, an AI-native EHR for private-pay behavioral health.
                 </p>
                 <p className="text-lg text-content-tertiary leading-relaxed">
-                  I also built StudBud, an AI study assistant used by 60 students in its first three
-                  days. Outside work, I&apos;m usually following sports, exploring food spots, or testing
-                  new tech.
+                  I also built StudBud, an AI study assistant that hit 60 users in its first three
+                  days. Outside work, I&apos;m usually following sports, hunting for good food, or messing
+                  with new tech.
                 </p>
+              </motion.div>
+
+              <motion.div variants={fadeUp} className="flex flex-wrap gap-2 pt-1">
+                <MetaPill size="sm" label="Degree" value="BSc Psychology" />
+                <MetaPill
+                  size="sm"
+                  label="College"
+                  value={(
+                    <a
+                      href="https://www.ashoka.edu.in/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-ink transition-colors duration-200"
+                    >
+                      Ashoka University
+                    </a>
+                  )}
+                />
+                <MetaPill size="sm" label="Age" value="22" />
               </motion.div>
 
               <motion.div variants={fadeUp} className="pt-2">
@@ -77,14 +103,14 @@ const AboutSection: React.FC = () => {
             </div>
 
             {/* Right Column: Pixelated Portrait */}
-            <motion.div variants={fadeUp} className="flex flex-col items-center justify-center">
+            <motion.div variants={fadeUp} className="flex flex-col items-center justify-start">
               <div className="relative">
                 {/* Ambient glow behind portrait */}
                 <div
                   className="absolute inset-0 bg-electric/[0.04] blur-[60px] rounded-full pointer-events-none"
                   aria-hidden="true"
                 />
-                <div className="w-[280px] md:w-[480px]">
+                <div className="w-full max-w-[552px] sm:max-w-[744px] md:max-w-[936px] lg:max-w-[1008px]">
                   <PixelatedCanvas
                     src="/images/IMG.png"
                     width={320}

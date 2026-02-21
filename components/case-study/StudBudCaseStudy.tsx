@@ -26,9 +26,10 @@ import {
 
 interface StudBudCaseStudyProps {
   project: Project;
+  lockFullCaseStudy?: boolean;
 }
 
-const StudBudCaseStudy: React.FC<StudBudCaseStudyProps> = ({ project }) => {
+const StudBudCaseStudy: React.FC<StudBudCaseStudyProps> = ({ project, lockFullCaseStudy = false }) => {
   const nextProject = getNextProject('studbud');
   const prevProject = getPrevProject('studbud');
   const resources = project.caseStudy?.resources ?? [];
@@ -43,9 +44,10 @@ const StudBudCaseStudy: React.FC<StudBudCaseStudyProps> = ({ project }) => {
         tag="EdTech AI"
         title="StudBud"
         titleClassName="bg-gradient-to-r from-[#8FA98F] to-[#C3D3C3] bg-clip-text text-transparent"
-        subtitle="An AI study assistant that syncs with Google Classroom."
+        subtitle="AI study assistant for Google Classroom. 60 users in first 3 days."
         meta={[
           { label: 'Role', value: 'Designer & Developer (Solo)' },
+          { label: 'Website', value: 'www.studbudai.com', href: 'https://www.studbudai.com' },
           { label: 'Stack', value: 'Next.js · TypeScript · Google Classroom API · OpenAI · PostgreSQL + pgvector' },
           { label: 'Status', value: 'Live product, 60 users in first 3 days' },
           { label: 'Platform', value: 'Web' },
@@ -71,7 +73,11 @@ const StudBudCaseStudy: React.FC<StudBudCaseStudyProps> = ({ project }) => {
       </motion.section>
 
       {/* ── TABS ── */}
-      <CaseStudyTabs overview={project.caseStudy!.overview!} resources={resources}>
+      <CaseStudyTabs
+        overview={project.caseStudy!.overview!}
+        resources={resources}
+        lockFullCaseStudy={lockFullCaseStudy}
+      >
 
       <SectionDivider />
 

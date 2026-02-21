@@ -13,6 +13,13 @@ import SplitTextReveal from '@/components/ui/SplitTextReveal';
 
 const featured = getFeaturedProjects();
 const allWork = projects.filter((p) => !p.featured);
+const PROJECT_BRAND_RGB: Record<string, string> = {
+  coralehr: '243,106,89',
+  ticvision: '102,163,255',
+  studbud: '143,169,143',
+  leanspark: '216,164,92',
+  flowatlas: '108,188,198',
+};
 
 export default function WorkPage() {
   const { preloadImage } = useImagePreload();
@@ -28,7 +35,7 @@ export default function WorkPage() {
           className="mb-16"
         >
           <SplitTextReveal
-            text="Selected Work"
+            text="Work"
             as="h1"
             className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-display"
           />
@@ -60,6 +67,7 @@ export default function WorkPage() {
                 key={project.id}
                 project={project}
                 priority={index < 2}
+                depthEnhanced
                 onHover={() => preloadImage(project.image)}
               />
             ))}
@@ -90,6 +98,7 @@ export default function WorkPage() {
                 key={project.id}
                 project={project}
                 priority={false}
+                depthEnhanced={false}
                 onHover={() => preloadImage(project.image)}
               />
             ))}
@@ -104,10 +113,12 @@ export default function WorkPage() {
 function ProjectCard({
   project,
   priority,
+  depthEnhanced,
   onHover,
 }: {
   project: (typeof projects)[number];
   priority: boolean;
+  depthEnhanced: boolean;
   onHover: () => void;
 }) {
   const isExternal = project.href.startsWith('http');
@@ -115,16 +126,45 @@ function ProjectCard({
   const linkProps = isExternal
     ? { href: project.href, target: '_blank' as const, rel: 'noopener noreferrer' }
     : { href: project.href };
+  const brandRgb = PROJECT_BRAND_RGB[project.id] ?? '160,160,160';
+  const pointerVars = { '--px': '50%', '--py': '50%' } as React.CSSProperties;
+
+  const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
+    if (!depthEnhanced) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+    event.currentTarget.style.setProperty('--px', `${x}%`);
+    event.currentTarget.style.setProperty('--py', `${y}%`);
+  };
 
   return (
     <motion.article
       variants={fadeUp}
       className="group relative"
       onMouseEnter={onHover}
+      onPointerMove={handlePointerMove}
+      style={{ ...pointerVars, ['--brand-rgb' as string]: brandRgb }}
     >
-      <LinkEl {...linkProps} className="block space-y-4">
+      <LinkEl {...linkProps} className="block h-full space-y-4">
         {/* Project Image — Ken Burns on hover */}
         <div className="relative aspect-[16/10] overflow-hidden rounded-xl glass">
+          <div
+            className="absolute -inset-3 z-[5] pointer-events-none opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100"
+            style={{
+              background:
+                'radial-gradient(380px circle at var(--px, 50%) var(--py, 50%), rgba(var(--brand-rgb), 0.06), rgba(var(--brand-rgb), 0.02) 38%, rgba(var(--brand-rgb), 0) 72%)',
+            }}
+          />
+          {depthEnhanced && (
+            <div
+              className="absolute inset-0 z-[15] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{
+                background:
+                  'radial-gradient(420px circle at var(--px, 50%) var(--py, 50%), rgba(var(--brand-rgb), 0.035), rgba(var(--brand-rgb), 0.012) 35%, rgba(var(--brand-rgb), 0) 70%)',
+              }}
+            />
+          )}
           <ImageShimmer
             src={project.image}
             alt={`${project.title} preview`}
@@ -137,12 +177,12 @@ function ProjectCard({
         </div>
 
         {/* Project Info */}
-        <div className="space-y-2">
-          <h3 className="text-2xl font-bold group-hover:text-electric transition-colors duration-300">
+        <div className="space-y-2 flex min-h-[170px] flex-col">
+          <h3 className="text-2xl font-bold transition-colors duration-300 group-hover:text-[rgb(var(--brand-rgb))]">
             {project.title}
           </h3>
 
-          <div className="space-y-2 transition-all duration-300 ease-out opacity-60 group-hover:opacity-100">
+          <div className="space-y-2 transition-all duration-300 ease-out opacity-60 group-hover:opacity-100 flex-1">
             <div className="flex items-center gap-3">
               <Tag size="sm" variant="electric">
                 {project.tag}
@@ -157,8 +197,8 @@ function ProjectCard({
             </p>
           </div>
 
-          <div className="pt-1">
-            <span className="group/cta relative inline-flex items-center gap-3 rounded-full border border-white/[0.12] bg-white/[0.02] px-4 py-2 text-xs md:text-sm font-urbanist font-medium text-content-secondary transition-all duration-300 hover:-translate-y-0.5 hover:border-electric/35 hover:bg-white/[0.05] hover:text-ink">
+          <div className="pt-1 mt-auto">
+            <span className="group/cta relative inline-flex items-center gap-3 rounded-full border border-white/[0.12] bg-white/[0.02] px-4 py-2 text-xs md:text-sm font-urbanist font-medium text-content-secondary transition-all duration-300 hover:-translate-y-0.5 hover:border-electric/35 hover:bg-white/[0.05] hover:text-ink hover:shadow-[0_0_22px_rgba(102,163,255,0.12)]">
               <span
                 className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-electric/15 to-transparent opacity-0 transition-opacity duration-300 group-hover/cta:opacity-100"
                 aria-hidden="true"

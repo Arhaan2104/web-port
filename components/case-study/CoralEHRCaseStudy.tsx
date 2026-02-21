@@ -25,9 +25,10 @@ import {
 
 interface CoralEHRCaseStudyProps {
   project: Project;
+  lockFullCaseStudy?: boolean;
 }
 
-const CoralEHRCaseStudy: React.FC<CoralEHRCaseStudyProps> = ({ project }) => {
+const CoralEHRCaseStudy: React.FC<CoralEHRCaseStudyProps> = ({ project, lockFullCaseStudy = false }) => {
   const nextProject = getNextProject('coralehr');
   const prevProject = getPrevProject('coralehr');
   const resources = project.caseStudy?.resources ?? [];
@@ -45,6 +46,7 @@ const CoralEHRCaseStudy: React.FC<CoralEHRCaseStudyProps> = ({ project }) => {
         subtitle="AI-native EHR for private-pay behavioral health"
         meta={[
           { label: 'Role', value: 'Co-founder — Product Design & Engineering' },
+          { label: 'Website', value: 'www.coralehr.com', href: 'https://www.coralehr.com' },
           { label: 'Program', value: 'USC x Techstars Founder Catalyst' },
           { label: 'Status', value: 'Working product, 2 active design partners' },
           { label: 'Stack', value: 'React · TypeScript · Tailwind CSS · Claude API · AWS' },
@@ -68,7 +70,11 @@ const CoralEHRCaseStudy: React.FC<CoralEHRCaseStudyProps> = ({ project }) => {
       </motion.section>
 
       {/* ── TABS ── */}
-      <CaseStudyTabs overview={project.caseStudy!.overview!} resources={resources}>
+      <CaseStudyTabs
+        overview={project.caseStudy!.overview!}
+        resources={resources}
+        lockFullCaseStudy={lockFullCaseStudy}
+      >
 
       <SectionDivider />
 

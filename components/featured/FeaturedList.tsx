@@ -44,8 +44,9 @@ const FeaturedList: React.FC = () => {
                   typeSpeed={100}
                   deleteSpeed={60}
                   pauseDelay={1500}
-                  delay={300}
+                  delay={520}
                   loop
+                  startOnView
                   cursorStyle="line"
                   blinkCursor
                 />

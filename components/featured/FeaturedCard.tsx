@@ -20,6 +20,12 @@ interface FeaturedCardProps {
   isReversed?: boolean;
 }
 
+const PROJECT_BRAND_RGB: Record<string, string> = {
+  coralehr: '243,106,89',
+  ticvision: '102,163,255',
+  studbud: '143,169,143',
+};
+
 const FeaturedCard: React.FC<FeaturedCardProps> = ({ project, index, isReversed = false }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -37,6 +43,20 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({ project, index, isReversed 
   const imageVariants = isReversed ? fadeLeft : fadeRight;
   const roleMeta = project.meta?.find((item) => item.label.toLowerCase() === 'role');
   const metaWithoutRole = project.meta?.filter((item) => item.label.toLowerCase() !== 'role');
+  const brandRgb = PROJECT_BRAND_RGB[project.id] ?? '160,160,160';
+  const pointerVars = {
+    '--px': '50%',
+    '--py': '50%',
+    '--brand-rgb': brandRgb,
+  } as React.CSSProperties;
+
+  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+    event.currentTarget.style.setProperty('--px', `${x}%`);
+    event.currentTarget.style.setProperty('--py', `${y}%`);
+  };
 
   return (
     <motion.div
@@ -49,6 +69,8 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({ project, index, isReversed 
       whileInView="animate"
       viewport={{ once: true, margin: '-100px' }}
       onMouseEnter={() => preloadImage(project.image)}
+      onPointerMove={handlePointerMove}
+      style={pointerVars}
     >
       {/* Content */}
       <motion.div
@@ -81,12 +103,17 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({ project, index, isReversed 
           <p className="text-lg font-urbanist text-content-tertiary leading-relaxed">
             {project.description}
           </p>
+          {project.featuredProof && (
+            <p className="text-sm font-urbanist text-content-muted leading-relaxed">
+              {project.featuredProof}
+            </p>
+          )}
         </div>
 
         <MagneticWrapper strength={0.3} distance={60}>
           <Link
             href={project.href}
-            className="group/cta relative inline-flex items-center gap-3 rounded-full border border-white/[0.12] bg-white/[0.02] px-5 py-2.5 text-sm font-urbanist font-medium text-content-secondary transition-all duration-300 hover:-translate-y-0.5 hover:border-electric/35 hover:bg-white/[0.05] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric focus-visible:ring-offset-2 focus-visible:ring-offset-obsidian-base"
+            className="group/cta relative inline-flex items-center gap-3 rounded-full border border-white/[0.12] bg-white/[0.02] px-5 py-2.5 text-sm font-urbanist font-medium text-content-secondary transition-all duration-300 hover:-translate-y-0.5 hover:border-electric/35 hover:bg-white/[0.05] hover:text-ink hover:shadow-[0_0_24px_rgba(102,163,255,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric focus-visible:ring-offset-2 focus-visible:ring-offset-obsidian-base"
             aria-label={`View ${project.title} case study`}
           >
             <span
@@ -109,16 +136,25 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({ project, index, isReversed 
         variants={imageVariants}
         className={isReversed ? 'lg:order-1' : ''}
       >
+        <Link href={project.href} aria-label={`View ${project.title} case study`}>
         <CometCard rotateDepth={12} translateDepth={15}>
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-obsidian-dark">
             {/* Border glow */}
             <div
               className="
                 absolute inset-0 z-20 rounded-2xl
-                ring-1 ring-electric/10 group-hover:ring-electric/30
+                ring-1 ring-white/[0.10] group-hover:ring-white/[0.22]
                 transition-all duration-500
                 pointer-events-none
               "
+            />
+
+            <div
+              className="absolute inset-0 z-[15] pointer-events-none rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{
+                background:
+                  'radial-gradient(420px circle at var(--px, 50%) var(--py, 50%), rgba(var(--brand-rgb), 0.065), rgba(var(--brand-rgb), 0.022) 35%, rgba(var(--brand-rgb), 0) 70%)',
+              }}
             />
 
             {/* Image with parallax + Ken Burns hover */}
@@ -149,6 +185,7 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({ project, index, isReversed 
             />
           </div>
         </CometCard>
+        </Link>
       </motion.div>
     </motion.div>
   );

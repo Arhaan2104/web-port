@@ -2,12 +2,17 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, useScroll, useTransform, useSpring, useMotionTemplate } from 'framer-motion';
 import { smoothSpring } from '@/lib/motion';
 import MagneticWrapper from '@/components/ui/MagneticWrapper';
 
 const Topbar: React.FC = () => {
+  const pathname = usePathname();
   const { scrollY } = useScroll();
+  const isWorkContext = pathname?.startsWith('/work');
+  const navLabel = isWorkContext ? 'Home' : 'Work';
+  const navHref = isWorkContext ? '/' : '/work';
 
   // Condensed at top, expands as user scrolls
   const rawMaxWidth = useTransform(scrollY, [0, 100], [620, 980]);
@@ -29,7 +34,8 @@ const Topbar: React.FC = () => {
 
   return (
     <motion.header
-      className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 md:px-6"
+      className="fixed left-0 right-0 z-50 flex justify-center px-4 md:px-6"
+      style={{ top: 'calc(env(safe-area-inset-top, 0px) + 0.75rem)' }}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
@@ -66,10 +72,10 @@ const Topbar: React.FC = () => {
             style={{ opacity: navOpacity, width: navWidth }}
           >
             <Link
-              href="/work"
-              className="eyebrow font-medium text-content-muted hover:text-electric transition-colors duration-200"
+              href={navHref}
+              className="inline-flex min-h-10 items-center px-1 eyebrow font-medium text-content-muted hover:text-electric transition-colors duration-200"
             >
-              Work
+              {navLabel}
             </Link>
           </motion.nav>
 
@@ -85,7 +91,7 @@ const Topbar: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn profile"
-              className="text-[#0A66C2] hover:text-[#0077B5] transition-colors duration-200"
+              className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-md -m-1 p-1 text-[#0A66C2] hover:text-[#0077B5] transition-colors duration-200"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />

@@ -14,8 +14,8 @@ const coralStyles: CaseStudyBrandStyles = {
 };
 
 const ticvisionStyles: CaseStudyBrandStyles = {
-  subheadText: 'bg-gradient-to-r from-[#66A3FF] to-[#A9CCFF] bg-clip-text text-transparent',
-  subheadDivider: 'bg-gradient-to-b from-[#66A3FF]/35 via-[#66A3FF]/12 to-transparent',
+  subheadText: 'bg-gradient-to-r from-[#DFEBEE] to-[#589CB4] bg-clip-text text-transparent',
+  subheadDivider: 'bg-gradient-to-b from-[#589CB4]/35 via-[#589CB4]/12 to-transparent',
 };
 
 const studbudStyles: CaseStudyBrandStyles = {

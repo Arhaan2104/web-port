@@ -8,11 +8,15 @@ const SECTIONS = ['Hero', 'Work', 'About'];
 const SectionDots: React.FC = () => {
   const { scrollYProgress } = useScroll();
   const [active, setActive] = React.useState(0);
+  const [showDots, setShowDots] = React.useState(false);
 
   useMotionValueEvent(scrollYProgress, 'change', (latest) => {
     if (latest < 0.25) setActive(0);
     else if (latest < 0.7) setActive(1);
     else setActive(2);
+
+    // Keep dots hidden during Hero; reveal once Work section starts.
+    setShowDots(latest >= 0.25);
   });
 
   const scrollToSection = (index: number) => {
@@ -22,7 +26,17 @@ const SectionDots: React.FC = () => {
   };
 
   return (
-    <div className="fixed left-8 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-center gap-4">
+    <motion.div
+      className="fixed left-8 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-center gap-4"
+      initial={false}
+      animate={{
+        opacity: showDots ? 1 : 0,
+        x: showDots ? 0 : -8,
+      }}
+      transition={{ duration: 0.24, ease: 'easeOut' }}
+      style={{ pointerEvents: showDots ? 'auto' : 'none' }}
+      aria-hidden={!showDots}
+    >
       {SECTIONS.map((label, i) => (
         <button
           key={label}
@@ -44,7 +58,7 @@ const SectionDots: React.FC = () => {
           </span>
         </button>
       ))}
-    </div>
+    </motion.div>
   );
 };
 
