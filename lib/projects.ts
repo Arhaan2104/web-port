@@ -2,11 +2,12 @@ export interface CaseStudyOverview {
   headline: string;
   problem: string;
   solution: string;
-  outcomes: string[];
+  outcomes: { metric: string; description: string }[];
   tools: string[];
   role: string;
   timeline: string;
   liveSiteUrl?: string;
+  courses?: string[];
 }
 
 export type CaseStudyResourceType = 'demo' | 'website' | 'video' | 'link';
@@ -113,16 +114,40 @@ export const projects: Project[] = [
         problem: 'Tourette\'s affects an estimated 4 million people in the U.S. and Europe, and many more worldwide, yet most lack access to continuous, personalized care.',
         solution: 'Patients log tic intensity, triggers, and moods in the app while clinicians use a secure portal for structured symptom insights and treatment decisions. TicVision also supports self-monitoring for people without a doctor or therapist.',
         outcomes: [
-          '400+ downloads on the U.S. App Store',
-          'Clinician portal piloted with 13 U.S. clinicians',
-          '60+ clinician conversations',
-          'Presented at TicCon 2025',
+          { metric: '400+', description: 'downloads on the U.S. App Store' },
+          { metric: '13', description: 'U.S. clinicians piloted the portal' },
+          { metric: '60+', description: 'clinician conversations' },
+          { metric: 'TicCon 2025', description: 'Presented at the conference' },
         ],
         tools: ['Figma', 'React Native', 'Expo', 'Redux', 'Victory Native', 'SQLite'],
         role: 'Product Designer',
         timeline: 'Jan 2025 — Present',
         liveSiteUrl: 'https://www.ticvision.io',
+        courses: [
+          'Abnormal Psychology',
+          'Cognitive Psychology',
+          'Research Methods in Psychology',
+          'Human-Computer Interaction',
+        ],
       },
+      resources: [
+        {
+          id: 'ticvision-site',
+          type: 'website',
+          title: 'TicVision Website',
+          description: 'Product site with information about the app and its mission.',
+          url: 'https://www.ticvision.io',
+          ctaLabel: 'Visit Website',
+        },
+        {
+          id: 'ticvision-demo',
+          type: 'demo',
+          title: 'Clinician Portal Demo',
+          description: 'Explore the clinician portal with sample patient data.',
+          url: 'https://demo.ticvision.io',
+          ctaLabel: 'Open Demo',
+        },
+      ],
     },
   },
   {
@@ -198,10 +223,10 @@ export const projects: Project[] = [
         problem: 'Clinicians spend disproportionate time on documentation. EHRs treat note-taking as form-filling that doesn\'t match how clinicians think during sessions.',
         solution: 'A scratchpad-to-note pipeline where clinicians jot fragments during sessions, then AI structures them into clinical notes. Plus full patient management: charts, treatment plans, billing, messaging.',
         outcomes: [
-          'Working product with 2 active design partners',
-          'AI-powered note generation via Claude API',
-          'USC x Techstars Founder Catalyst program',
-          'HIPAA-compliant architecture on AWS',
+          { metric: '2', description: 'active design partners' },
+          { metric: 'Claude API', description: 'AI-powered clinical note generation' },
+          { metric: 'Techstars', description: 'USC x Techstars Founder Catalyst' },
+          { metric: 'HIPAA', description: 'compliant architecture on AWS' },
         ],
         tools: ['React', 'TypeScript', 'Tailwind CSS', 'Claude API', 'AWS'],
         role: 'Co-founder — Product Design & Engineering',
@@ -254,11 +279,11 @@ export const projects: Project[] = [
         problem: "Students have course content in Google Classroom but no way to interact with it for studying. Existing tools aren't connected to their courses.",
         solution: 'Built a pipeline that syncs Google Classroom, ingests every material, and makes it queryable through AI. Generates flashcards, quizzes, practice exams, concept maps, and study plans.',
         outcomes: [
-          '60 users in first 3 days (organic)',
-          '5 AI study tools from one content pipeline',
-          'Full document ingestion with OCR fallback',
-          'Privacy-first: read-only access, one-click deletion',
-          'Designed and built end-to-end as a solo project',
+          { metric: '60', description: 'users in first 3 days (organic)' },
+          { metric: '5', description: 'AI study tools from one content pipeline' },
+          { metric: 'Full ingestion', description: 'PDFs, Docs, Slides, YouTube, links, OCR' },
+          { metric: 'Privacy-first', description: 'read-only access, one-click deletion' },
+          { metric: 'Solo', description: 'designed and built end-to-end' },
         ],
         tools: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Google Classroom API', 'OpenAI', 'PostgreSQL + pgvector', 'Prisma', 'Vercel'],
         role: 'Designer & Developer (Solo)',
