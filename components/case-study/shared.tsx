@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
@@ -329,27 +329,29 @@ interface StatCardProps {
   metric: string;
   description: string;
   index?: number;
+  metricClassName?: string;
 }
 
-const StatCardInner: React.FC<StatCardProps> = ({ metric, description }) => {
+const StatCardInner: React.FC<StatCardProps> = ({ metric, description, metricClassName }) => {
   const parsed = parseMetric(metric);
 
   if (parsed) {
-    return <AnimatedStatCard number={parsed.number} suffix={parsed.suffix} description={description} />;
+    return <AnimatedStatCard number={parsed.number} suffix={parsed.suffix} description={description} metricClassName={metricClassName} />;
   }
 
   return (
     <div>
-      <p className="text-2xl md:text-3xl font-geist font-bold text-ink mb-2">{metric}</p>
+      <p className={cn('text-2xl md:text-3xl font-geist font-bold mb-2', metricClassName || 'text-ink')}>{metric}</p>
       <p className="text-sm text-white/60 font-urbanist leading-relaxed">{description}</p>
     </div>
   );
 };
 
-const AnimatedStatCard: React.FC<{ number: number; suffix: string; description: string }> = ({
+const AnimatedStatCard: React.FC<{ number: number; suffix: string; description: string; metricClassName?: string }> = ({
   number,
   suffix,
   description,
+  metricClassName,
 }) => {
   const [value, ref] = useCountUp({ end: number, duration: 1500 });
 
@@ -357,7 +359,7 @@ const AnimatedStatCard: React.FC<{ number: number; suffix: string; description: 
     <div>
       <p
         ref={ref as React.RefObject<HTMLParagraphElement>}
-        className="text-2xl md:text-3xl font-geist font-bold text-ink mb-2"
+        className={cn('text-2xl md:text-3xl font-geist font-bold mb-2', metricClassName || 'text-ink')}
       >
         {value}{suffix}
       </p>
@@ -366,9 +368,9 @@ const AnimatedStatCard: React.FC<{ number: number; suffix: string; description: 
   );
 };
 
-export const StatCard: React.FC<StatCardProps> = ({ metric, description, index = 0 }) => (
+export const StatCard: React.FC<StatCardProps> = ({ metric, description, index = 0, metricClassName }) => (
   <StatTile index={index}>
-    <StatCardInner metric={metric} description={description} />
+    <StatCardInner metric={metric} description={description} metricClassName={metricClassName} />
   </StatTile>
 );
 
@@ -400,6 +402,12 @@ export const SectionDivider: React.FC<SectionDividerProps> = ({ className = '' }
 
 interface ImageShowcaseProps {
   src?: string;
+  videoSrc?: string;
+  videoStartTimeSeconds?: number;
+  videoAutoPlay?: boolean;
+  videoMuted?: boolean;
+  videoLoop?: boolean;
+  videoControls?: boolean;
   label: string;
   description: string;
   aspect?: string;
@@ -408,12 +416,69 @@ interface ImageShowcaseProps {
 
 export const ImageShowcase: React.FC<ImageShowcaseProps> = ({
   src,
+  videoSrc,
+  videoStartTimeSeconds = 0,
+  videoAutoPlay = true,
+  videoMuted = true,
+  videoLoop = true,
+  videoControls = false,
   label,
   description,
   aspect = 'aspect-[16/10]',
   priority = false,
 }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (!videoSrc || !videoRef.current) return;
+
+    const video = videoRef.current;
+
+    const setStartTime = () => {
+      if (videoStartTimeSeconds > 0 && Number.isFinite(videoStartTimeSeconds)) {
+        video.currentTime = videoStartTimeSeconds;
+      }
+      if (videoAutoPlay) {
+        video.play().catch(() => {
+          // Autoplay with sound can be blocked by browser policy.
+        });
+      }
+    };
+
+    if (video.readyState >= 1) {
+      setStartTime();
+      return;
+    }
+
+    video.addEventListener('loadedmetadata', setStartTime);
+    return () => {
+      video.removeEventListener('loadedmetadata', setStartTime);
+    };
+  }, [videoAutoPlay, videoSrc, videoStartTimeSeconds]);
+
+  if (videoSrc) {
+    return (
+      <motion.div variants={fadeUp}>
+        <GlassCard
+          className={`relative ${aspect} overflow-hidden rounded-2xl ring-1 ring-white/[0.06]`}
+        >
+          <video
+            ref={videoRef}
+            src={videoSrc}
+            className="h-full w-full object-cover brightness-[0.9]"
+            autoPlay={videoAutoPlay}
+            muted={videoMuted}
+            loop={videoLoop}
+            controls={videoControls}
+            playsInline
+            preload="metadata"
+            aria-label={label}
+          />
+        </GlassCard>
+      </motion.div>
+    );
+  }
 
   if (src) {
     return (

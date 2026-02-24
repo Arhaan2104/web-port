@@ -55,9 +55,9 @@ const AboutSection: React.FC = () => {
                   research → UX/UI → frontend so the shipped product stays true to my vision for it.
                 </p>
                 <p className="text-lg text-content-tertiary leading-relaxed">
-                  I started in healthcare with TicVision (400+ U.S. App Store downloads,
-                  a 13-clinician pilot, and 60+ clinician conversations). Those learnings led directly
-                  to CoralEHR, an AI-native EHR for private-pay behavioral health.
+                  TicVision was born from my experience growing up with Tourette syndrome.
+                  Those learnings led directly to CoralEHR, an AI-native EHR for private-pay
+                  behavioral health.
                 </p>
                 <p className="text-lg text-content-tertiary leading-relaxed">
                   I also built StudBud, an AI study assistant that hit 60 users in its first three

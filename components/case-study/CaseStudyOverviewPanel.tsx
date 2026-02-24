@@ -8,6 +8,8 @@ import { fadeUp, stagger } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 import Tag from '@/components/ui/Tag';
 import MetaPill from '@/components/ui/MetaPill';
+import Button from '@/components/ui/Button';
+import GlassCard from '@/components/ui/GlassCard';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import CaseStudyResourcesCompact from './CaseStudyResourcesCompact';
 import { getCaseStudyBrandStyles } from './brandStyles';
@@ -64,47 +66,69 @@ export default function CaseStudyOverviewPanel({ overview, resources }: CaseStud
 
         <SectionDivider className="!px-0 !my-2" />
 
-        {/* Outcomes */}
+        {/* Outcomes — brand-colored metrics */}
         <motion.div variants={fadeUp} className="space-y-4">
           <SectionEyebrow className={brandStyles.subheadText}>Outcomes</SectionEyebrow>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {overview.outcomes.map((outcome, i) => (
-              <StatCard key={i} metric={outcome} description="" index={i} />
+              <StatCard
+                key={i}
+                metric={outcome.metric}
+                description={outcome.description}
+                index={i}
+                metricClassName={brandStyles.subheadText}
+              />
             ))}
           </div>
         </motion.div>
 
         <SectionDivider className="!px-0 !my-2" />
 
-        {/* Meta bar: Role, Timeline */}
-        <motion.div
-          variants={fadeUp}
-          className="flex flex-wrap gap-3 md:gap-4"
-        >
-          <MetaPill label="Role" value={overview.role} />
-          <MetaPill label="Timeline" value={overview.timeline} />
-        </motion.div>
+        {/* Relevant Coursework */}
+        {overview.courses && overview.courses.length > 0 && (
+          <>
+            <motion.div variants={fadeUp} className="space-y-4">
+              <SectionEyebrow className={brandStyles.subheadText}>Relevant Coursework</SectionEyebrow>
+              <div className="flex flex-wrap gap-2">
+                {overview.courses.map((course) => (
+                  <Tag key={course} variant="default" size="md">{course}</Tag>
+                ))}
+              </div>
+            </motion.div>
+            <SectionDivider className="!px-0 !my-2" />
+          </>
+        )}
 
+        {/* Resources */}
         <CaseStudyResourcesCompact resources={resources} />
 
-        {/* Tools */}
-        <motion.div variants={fadeUp} className="flex flex-wrap gap-2">
-          {overview.tools.map((tool) => (
-            <Tag key={tool} variant="default" size="md">{tool}</Tag>
-          ))}
+        {/* Meta + Tools grouped in GlassCard */}
+        <motion.div variants={fadeUp}>
+          <GlassCard className="p-6 space-y-5">
+            <div className="flex flex-wrap gap-3 md:gap-4">
+              <MetaPill label="Role" value={overview.role} />
+              <MetaPill label="Timeline" value={overview.timeline} />
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {overview.tools.map((tool) => (
+                <Tag key={tool} variant="default" size="md">{tool}</Tag>
+              ))}
+            </div>
+          </GlassCard>
         </motion.div>
 
-        {/* Live site link */}
+        {/* Live site — glass button */}
         {overview.liveSiteUrl && (
           <motion.div variants={fadeUp}>
             <a
               href={overview.liveSiteUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-electric hover:gap-3 transition-all duration-200 font-urbanist font-medium"
             >
-              Visit Live Site
-              <ExternalLink className="w-4 h-4" />
+              <Button variant="glass" magnetic>
+                Visit Live Site
+                <ExternalLink className="w-4 h-4" />
+              </Button>
             </a>
           </motion.div>
         )}
