@@ -63,7 +63,7 @@ const CoralEHRCaseStudy: React.FC<CoralEHRCaseStudyProps> = ({ project, lockFull
       >
         <div className="max-w-6xl mx-auto">
           <ImageShowcase
-            videoSrc="/images/CoralEHR%20Demo.mp4"
+            videoSrc="/images/coralehr-demo.mp4"
             videoStartTimeSeconds={10}
             videoPlaybackRate={1.2}
             videoControls
