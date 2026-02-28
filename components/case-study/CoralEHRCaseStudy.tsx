@@ -65,10 +65,10 @@ const CoralEHRCaseStudy: React.FC<CoralEHRCaseStudyProps> = ({ project, lockFull
           <ImageShowcase
             videoSrc="/images/CoralEHR%20Demo.mp4"
             videoStartTimeSeconds={10}
-            videoMuted={false}
+            videoPlaybackRate={1.2}
             videoControls
-            label="Hero Screenshot"
-            description="Full-width screenshot of the patient chart page showing the card grid layout. Pick the view with the most visual density that still reads clean."
+            label="CoralEHR Demo"
+            description="Full walkthrough of the patient chart, scratchpad-to-note pipeline, and card-based layout."
           />
         </div>
       </motion.section>

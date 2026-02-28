@@ -408,6 +408,7 @@ interface ImageShowcaseProps {
   videoMuted?: boolean;
   videoLoop?: boolean;
   videoControls?: boolean;
+  videoPlaybackRate?: number;
   label: string;
   description: string;
   aspect?: string;
@@ -422,6 +423,7 @@ export const ImageShowcase: React.FC<ImageShowcaseProps> = ({
   videoMuted = true,
   videoLoop = true,
   videoControls = false,
+  videoPlaybackRate = 1,
   label,
   description,
   aspect = 'aspect-[16/10]',
@@ -435,9 +437,12 @@ export const ImageShowcase: React.FC<ImageShowcaseProps> = ({
 
     const video = videoRef.current;
 
-    const setStartTime = () => {
+    const setup = () => {
       if (videoStartTimeSeconds > 0 && Number.isFinite(videoStartTimeSeconds)) {
         video.currentTime = videoStartTimeSeconds;
+      }
+      if (videoPlaybackRate !== 1) {
+        video.playbackRate = videoPlaybackRate;
       }
       if (videoAutoPlay) {
         video.play().catch(() => {
@@ -447,15 +452,15 @@ export const ImageShowcase: React.FC<ImageShowcaseProps> = ({
     };
 
     if (video.readyState >= 1) {
-      setStartTime();
+      setup();
       return;
     }
 
-    video.addEventListener('loadedmetadata', setStartTime);
+    video.addEventListener('loadedmetadata', setup);
     return () => {
-      video.removeEventListener('loadedmetadata', setStartTime);
+      video.removeEventListener('loadedmetadata', setup);
     };
-  }, [videoAutoPlay, videoSrc, videoStartTimeSeconds]);
+  }, [videoAutoPlay, videoPlaybackRate, videoSrc, videoStartTimeSeconds]);
 
   if (videoSrc) {
     return (
