@@ -22,7 +22,7 @@ const HeroSection: React.FC = () => {
         <CursorOrb />
         {/* Subtle glow effect behind orb */}
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-electric/10 rounded-full blur-[120px] pointer-events-none"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] md:w-[400px] md:h-[400px] bg-electric/10 rounded-full blur-[80px] md:blur-[120px] pointer-events-none"
           aria-hidden="true"
         />
       </div>
@@ -59,8 +59,8 @@ const HeroSection: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-obsidian-base/50 to-obsidian-dark/80" />
 
         {/* Decorative blur spots */}
-        <div className="absolute top-20 right-1/4 w-96 h-96 bg-electric/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-20 left-1/4 w-96 h-96 bg-electric/3 rounded-full blur-[120px]" />
+        <div className="absolute top-20 right-1/4 w-48 h-48 md:w-96 md:h-96 bg-electric/5 rounded-full blur-[80px] md:blur-[120px]" />
+        <div className="absolute bottom-20 left-1/4 w-48 h-48 md:w-96 md:h-96 bg-electric/3 rounded-full blur-[80px] md:blur-[120px]" />
       </div>
     </section>
   );

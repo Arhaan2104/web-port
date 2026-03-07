@@ -140,7 +140,13 @@ body {
   }
 
   .case-tabs-shadow {
-    box-shadow: 0 -20px 20px 20px var(--obsidian-base);
+    box-shadow: 0 -12px 12px 12px var(--obsidian-base);
+  }
+
+  @media (min-width: 768px) {
+    .case-tabs-shadow {
+      box-shadow: 0 -20px 20px 20px var(--obsidian-base);
+    }
   }
 }
 

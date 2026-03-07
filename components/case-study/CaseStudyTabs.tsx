@@ -26,7 +26,7 @@ function CaseStudyTabsFallback({
   lockFullCaseStudy?: boolean;
 }) {
   return (
-    <div className="sticky top-20 z-40 px-6 md:px-12 lg:px-24 py-4 bg-obsidian-base case-tabs-shadow">
+    <div className="sticky top-16 md:top-20 z-40 px-6 md:px-12 lg:px-24 py-3 md:py-4 bg-obsidian-base case-tabs-shadow">
       <div className="max-w-5xl mx-auto flex justify-start md:justify-center overflow-x-auto">
         <div className="inline-flex min-w-max rounded-full p-1.5 bg-white/[0.03] border border-white/[0.08]">
           <div className="px-5 md:px-7 py-2.5 min-h-11 text-sm md:text-base font-urbanist font-medium rounded-full text-ink bg-white/[0.08] border border-white/[0.12]">
@@ -81,7 +81,7 @@ function CaseStudyTabsInner({ overview, resources, lockFullCaseStudy = false, lo
   return (
     <>
       {/* Sticky tab bar */}
-      <div className="sticky top-20 z-40 px-6 md:px-12 lg:px-24 py-4 bg-obsidian-base case-tabs-shadow">
+      <div className="sticky top-16 md:top-20 z-40 px-6 md:px-12 lg:px-24 py-3 md:py-4 bg-obsidian-base case-tabs-shadow">
         <div className="max-w-5xl mx-auto flex justify-start md:justify-center overflow-x-auto">
           <LayoutGroup>
             <div className="inline-flex min-w-max rounded-full p-1.5 bg-white/[0.03] border border-white/[0.08]">
