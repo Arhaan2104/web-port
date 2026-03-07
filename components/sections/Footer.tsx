@@ -7,7 +7,6 @@ import { fadeUp, stagger } from '@/lib/motion';
 
 const footerNav = [
   { label: 'Work', href: '/work' },
-  { label: 'Lab', href: '/lab' },
 ];
 
 const Footer: React.FC = () => {

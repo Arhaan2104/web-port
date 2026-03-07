@@ -132,8 +132,8 @@ const StudBudCaseStudy: React.FC<StudBudCaseStudyProps> = ({ project, lockFullCa
       {/* Problem diagram */}
       <Section>
         <ImageShowcase
-          label="Problem Diagram (Optional)"
-          description="Simple diagram: Google Classroom (content sits here) → gap → Student (studies over here with separate, disconnected tools). Or skip if the text carries it."
+          label="Coming Soon"
+          description=""
           aspect="aspect-[16/8]"
         />
       </Section>
@@ -396,8 +396,8 @@ const StudBudCaseStudy: React.FC<StudBudCaseStudyProps> = ({ project, lockFullCa
 
         <div className="space-y-8">
           <ImageShowcase
-            label="User Feedback (Optional)"
-            description="Real messages, DMs, or reactions from students. These carry more weight than any metric."
+            label="Coming Soon"
+            description=""
             aspect="aspect-[16/8]"
           />
         </div>

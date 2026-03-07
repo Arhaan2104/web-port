@@ -14,6 +14,7 @@ interface CaseStudyTabsProps {
   overview: CaseStudyOverview;
   resources?: CaseStudyResource[];
   lockFullCaseStudy?: boolean;
+  lockOverview?: boolean;
   children: React.ReactNode;
 }
 
@@ -32,9 +33,9 @@ function CaseStudyTabsFallback({
             Overview
           </div>
           <div className="px-5 md:px-7 py-2.5 min-h-11 text-sm md:text-base font-urbanist font-medium rounded-full text-white/40">
-            {lockFullCaseStudy ? 'Coming Soon' : 'Full Case Study'}
+            Full Case Study
           </div>
-          {showResources && (
+          {(showResources || lockFullCaseStudy) && (
             <div className="px-5 md:px-7 py-2.5 min-h-11 text-sm md:text-base font-urbanist font-medium rounded-full text-white/40">
               Resources
             </div>
@@ -45,7 +46,7 @@ function CaseStudyTabsFallback({
   );
 }
 
-function CaseStudyTabsInner({ overview, resources, lockFullCaseStudy = false, children }: CaseStudyTabsProps) {
+function CaseStudyTabsInner({ overview, resources, lockFullCaseStudy = false, lockOverview = false, children }: CaseStudyTabsProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -55,7 +56,7 @@ function CaseStudyTabsInner({ overview, resources, lockFullCaseStudy = false, ch
   const activeTab: ViewTab =
     requestedView === 'full'
       ? 'full'
-      : requestedView === 'resources' && hasResources
+      : requestedView === 'resources' && (hasResources || lockFullCaseStudy)
         ? 'resources'
         : 'overview';
 
@@ -73,8 +74,8 @@ function CaseStudyTabsInner({ overview, resources, lockFullCaseStudy = false, ch
 
   const tabs = [
     { key: 'overview' as const, label: 'Overview' },
-    { key: 'full' as const, label: lockFullCaseStudy ? 'Coming Soon' : 'Full Case Study' },
-    ...(hasResources ? [{ key: 'resources' as const, label: 'Resources' }] : []),
+    { key: 'full' as const, label: 'Full Case Study' },
+    ...(hasResources || lockFullCaseStudy ? [{ key: 'resources' as const, label: 'Resources' }] : []),
   ];
 
   return (
@@ -118,7 +119,18 @@ function CaseStudyTabsInner({ overview, resources, lockFullCaseStudy = false, ch
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
           >
-            <CaseStudyOverviewPanel overview={overview} resources={resources} />
+            {lockOverview ? (
+              <div className="px-6 md:px-12 lg:px-24 pt-12 pb-20">
+                <div className="max-w-5xl mx-auto">
+                  <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] px-8 py-14 text-center">
+                    <p className="eyebrow mb-3 text-white/50">Overview</p>
+                    <h3 className="text-3xl md:text-4xl font-urbanist font-semibold text-ink">Coming soon</h3>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <CaseStudyOverviewPanel overview={overview} resources={resources} />
+            )}
           </motion.div>
         ) : activeTab === 'full' ? (
           <motion.div
@@ -151,7 +163,14 @@ function CaseStudyTabsInner({ overview, resources, lockFullCaseStudy = false, ch
             className="px-6 md:px-12 lg:px-24 pt-12 pb-20"
           >
             <div className="max-w-5xl mx-auto">
-              <CaseStudyResources resources={resources} />
+              {lockFullCaseStudy ? (
+                <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] px-8 py-14 text-center">
+                  <p className="eyebrow mb-3 text-white/50">Resources</p>
+                  <h3 className="text-3xl md:text-4xl font-urbanist font-semibold text-ink">Coming soon</h3>
+                </div>
+              ) : (
+                <CaseStudyResources resources={resources} />
+              )}
             </div>
           </motion.div>
         )}
