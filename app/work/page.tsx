@@ -182,7 +182,7 @@ function ProjectCard({
         </div>
 
         {/* Project Info */}
-        <div className="space-y-2 flex min-h-[170px] flex-col">
+        <div className="space-y-2 flex md:min-h-[170px] flex-col">
           <h3 className="text-2xl font-bold transition-colors duration-300 group-hover:text-[rgb(var(--brand-rgb))]">
             {project.title}
           </h3>
@@ -203,7 +203,7 @@ function ProjectCard({
           </div>
 
           <div className="pt-1 mt-auto">
-            <span className="group/cta relative inline-flex items-center gap-3 rounded-full border border-white/[0.12] bg-white/[0.02] px-4 py-2 text-xs md:text-sm font-urbanist font-medium text-content-secondary transition-all duration-300 hover:-translate-y-0.5 hover:border-electric/35 hover:bg-white/[0.05] hover:text-ink hover:shadow-[0_0_22px_rgba(102,163,255,0.12)]">
+            <span className="group/cta relative inline-flex items-center gap-3 rounded-full border border-white/[0.12] bg-white/[0.02] px-4 py-2.5 text-sm font-urbanist font-medium text-content-secondary transition-all duration-300 hover:-translate-y-0.5 hover:border-electric/35 hover:bg-white/[0.05] hover:text-ink hover:shadow-[0_0_22px_rgba(102,163,255,0.12)]">
               <span
                 className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-electric/15 to-transparent opacity-0 transition-opacity duration-300 group-hover/cta:opacity-100"
                 aria-hidden="true"
@@ -212,7 +212,7 @@ function ProjectCard({
                 {isExternal ? 'Visit Site' : 'View Project'}
               </span>
               <span
-                className="relative z-10 inline-flex h-5.5 w-5.5 md:h-6 md:w-6 items-center justify-center rounded-full border border-white/[0.12] bg-white/[0.04] transition-all duration-300 group-hover/cta:border-electric/45 group-hover/cta:bg-electric/12"
+                className="relative z-10 inline-flex h-6 w-6 items-center justify-center rounded-full border border-white/[0.12] bg-white/[0.04] transition-all duration-300 group-hover/cta:border-electric/45 group-hover/cta:bg-electric/12"
                 aria-hidden="true"
               >
                 {isExternal ? (
