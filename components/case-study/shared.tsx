@@ -471,7 +471,7 @@ export const ImageShowcase: React.FC<ImageShowcaseProps> = ({
           <video
             ref={videoRef}
             src={videoSrc}
-            className="h-full w-full object-cover brightness-[0.9]"
+            className="h-full w-full object-contain brightness-[0.9]"
             autoPlay={videoAutoPlay}
             muted={videoMuted}
             loop={videoLoop}

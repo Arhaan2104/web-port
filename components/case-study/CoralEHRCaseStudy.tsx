@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { fadeUp } from '@/lib/motion';
 import type { Project } from '@/lib/projects';
 import { getNextProject, getPrevProject } from '@/lib/projects';
+import GlassCard from '@/components/ui/GlassCard';
 import DesignSystemShowcase from '@/components/case-study/coral/DesignSystemShowcase';
 import CaseStudyResources from './CaseStudyResources';
 import CaseStudyTabs from './CaseStudyTabs';
@@ -62,14 +63,15 @@ const CoralEHRCaseStudy: React.FC<CoralEHRCaseStudyProps> = ({ project, lockFull
         transition={{ duration: 0.7, delay: 0.3, ease: [0.4, 0, 0.2, 1] }}
       >
         <div className="max-w-6xl mx-auto">
-          <ImageShowcase
-            videoSrc="/images/coralehr-demo.mp4"
-            videoStartTimeSeconds={10}
-            videoPlaybackRate={1.2}
-            videoControls
-            label="CoralEHR Demo"
-            description="Full walkthrough of the patient chart, scratchpad-to-note pipeline, and card-based layout."
-          />
+          <GlassCard className="relative aspect-[16/10] overflow-hidden rounded-2xl ring-1 ring-white/[0.06]">
+            <iframe
+              src="https://demo.coralehr.com"
+              title="CoralEHR Interactive Demo"
+              className="h-full w-full border-0"
+              allow="clipboard-write"
+              loading="lazy"
+            />
+          </GlassCard>
         </div>
       </motion.section>
 
@@ -78,6 +80,7 @@ const CoralEHRCaseStudy: React.FC<CoralEHRCaseStudyProps> = ({ project, lockFull
         overview={project.caseStudy!.overview!}
         resources={resources}
         lockFullCaseStudy={lockFullCaseStudy}
+        lockOverview={lockFullCaseStudy}
       >
 
       <SectionDivider />
